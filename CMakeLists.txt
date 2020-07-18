@@ -16,7 +16,7 @@ set(SOURCE_FILES
 
         lib/BMPLoader/BMPLoader.cpp
         lib/BMPLoader/BMPLoader.h
-        lib/callbacks/callbacks.cpp lib/callbacks/callbacks.h lib/callbacks/Display.cpp lib/callbacks/ReSize.cpp lib/callbacks/Setup.cpp)
+        lib/callbacks/callbacks.cpp lib/callbacks/callbacks.h lib/callbacks/Display.cpp lib/callbacks/ReSize.cpp lib/callbacks/Setup.cpp lib/callbacks/keyboard.cpp)
 
 ##########################################################
 # Project Setup ##########################################

@@ -35,7 +35,8 @@ public:
     static void IdleCallback(void (*function)(void));
     static void SetupCallback(void (*function)(void));
     static void CloseCallback(void (*function)(void));
-    // TODO: Keyboard callback and mouse callback
+    static void KeyDownCallback(void (*function)(unsigned char, int, int), bool KeyRepeat = false);
+    static void KeyUpCallback(void (*function)(unsigned char, int, int));
 
     // Texture Handling Functions
     static void AddTexture(const char *filename, const char *Id, int type);

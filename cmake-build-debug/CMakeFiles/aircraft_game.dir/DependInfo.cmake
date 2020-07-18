@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/thele/CLionProjects/aircraft/lib/callbacks/ReSize.cpp" "C:/Users/thele/CLionProjects/aircraft/cmake-build-debug/CMakeFiles/aircraft_game.dir/lib/callbacks/ReSize.cpp.obj"
   "C:/Users/thele/CLionProjects/aircraft/lib/callbacks/Setup.cpp" "C:/Users/thele/CLionProjects/aircraft/cmake-build-debug/CMakeFiles/aircraft_game.dir/lib/callbacks/Setup.cpp.obj"
   "C:/Users/thele/CLionProjects/aircraft/lib/callbacks/callbacks.cpp" "C:/Users/thele/CLionProjects/aircraft/cmake-build-debug/CMakeFiles/aircraft_game.dir/lib/callbacks/callbacks.cpp.obj"
+  "C:/Users/thele/CLionProjects/aircraft/lib/callbacks/keyboard.cpp" "C:/Users/thele/CLionProjects/aircraft/cmake-build-debug/CMakeFiles/aircraft_game.dir/lib/callbacks/keyboard.cpp.obj"
   "C:/Users/thele/CLionProjects/aircraft/lib/gameEngine/gameEngine.cpp" "C:/Users/thele/CLionProjects/aircraft/cmake-build-debug/CMakeFiles/aircraft_game.dir/lib/gameEngine/gameEngine.cpp.obj"
   "C:/Users/thele/CLionProjects/aircraft/lib/glModel/glModel.cpp" "C:/Users/thele/CLionProjects/aircraft/cmake-build-debug/CMakeFiles/aircraft_game.dir/lib/glModel/glModel.cpp.obj"
   "C:/Users/thele/CLionProjects/aircraft/main.cpp" "C:/Users/thele/CLionProjects/aircraft/cmake-build-debug/CMakeFiles/aircraft_game.dir/main.cpp.obj"

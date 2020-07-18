@@ -101,6 +101,9 @@
 		<Unit filename="C:/Users/thele/CLionProjects/aircraft/lib/callbacks/callbacks.h">
 			<Option target="aircraft_game"/>
 		</Unit>
+		<Unit filename="C:/Users/thele/CLionProjects/aircraft/lib/callbacks/keyboard.cpp">
+			<Option target="aircraft_game"/>
+		</Unit>
 		<Unit filename="C:/Users/thele/CLionProjects/aircraft/lib/gameEngine/gameEngine.cpp">
 			<Option target="aircraft_game"/>
 		</Unit>

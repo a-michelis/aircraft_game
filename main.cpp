@@ -11,11 +11,14 @@ int main(int argc, char *argv[]) {
             new unsigned int[3]{GLUT_DEPTH, GLUT_DOUBLE, GLUT_RGBA}, 3,
             &argc, argv
             );
+    gameEngine::SetupCallback(Setup);
+    gameEngine::CloseCallback(Close);
 
     gameEngine::DisplayCallback(Display);
     gameEngine::ResizeCallback(Resize);
-    gameEngine::SetupCallback(Setup);
     gameEngine::IdleCallback(Idle);
+    gameEngine::KeyDownCallback(KeyDown);
+    gameEngine::KeyUpCallback(KeyUp);
 
     //glutErrorFunc()
 

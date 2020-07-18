@@ -32,6 +32,13 @@ CMakeFiles/aircraft_game.dir/lib/callbacks/callbacks.cpp.obj: ../lib/gameEngine/
 CMakeFiles/aircraft_game.dir/lib/callbacks/callbacks.cpp.obj: ../lib/glModel/glModel.h
 CMakeFiles/aircraft_game.dir/lib/callbacks/callbacks.cpp.obj: ../lib/structs.h
 
+CMakeFiles/aircraft_game.dir/lib/callbacks/keyboard.cpp.obj: ../lib/BMPLoader/BMPLoader.h
+CMakeFiles/aircraft_game.dir/lib/callbacks/keyboard.cpp.obj: ../lib/callbacks/callbacks.h
+CMakeFiles/aircraft_game.dir/lib/callbacks/keyboard.cpp.obj: ../lib/callbacks/keyboard.cpp
+CMakeFiles/aircraft_game.dir/lib/callbacks/keyboard.cpp.obj: ../lib/gameEngine/gameEngine.h
+CMakeFiles/aircraft_game.dir/lib/callbacks/keyboard.cpp.obj: ../lib/glModel/glModel.h
+CMakeFiles/aircraft_game.dir/lib/callbacks/keyboard.cpp.obj: ../lib/structs.h
+
 CMakeFiles/aircraft_game.dir/lib/gameEngine/gameEngine.cpp.obj: ../lib/BMPLoader/BMPLoader.h
 CMakeFiles/aircraft_game.dir/lib/gameEngine/gameEngine.cpp.obj: ../lib/callbacks/callbacks.h
 CMakeFiles/aircraft_game.dir/lib/gameEngine/gameEngine.cpp.obj: ../lib/gameEngine/gameEngine.cpp

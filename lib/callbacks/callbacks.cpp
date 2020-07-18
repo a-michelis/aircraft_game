@@ -20,8 +20,17 @@ float elikas = 0.f;
 
 void Idle()
 {
-    forReal = fmod(forReal + 0.36, 360);
-    zrot =80*sin(forReal * 2 * M_PI /  360);
+    if (!(tl ^ tr)) {
+        forReal = forReal > 0 ? forReal - 0.72 : (forReal < 0 ? forReal + 0.72 : 0);
+        if (forReal < 0.72 && forReal > -0.72) forReal = 0;
+    }
+    else
+    {
+        forReal += tl ? 0.72 : -0.72;
+        forReal = forReal > 90 ? 90 : (forReal < -90 ? -90 : forReal);
+    }
+
+    zrot =60*sin(forReal * 2 * M_PI /  360);
     //float qq =80*sin(forReal * 2 * M_PI /  360);
     rot = 0.5*zrot;
 

@@ -87,6 +87,17 @@ void gameEngine::CloseCallback(void (*function)(void)) {
     _closeFunc = function;
 }
 
+void gameEngine::KeyDownCallback(void (*function)(unsigned char, int, int), bool KeyRepeat) {
+    if (function == nullptr) return;
+    glutKeyboardFunc(function);
+    glutIgnoreKeyRepeat(!KeyRepeat);
+}
+
+void gameEngine::KeyUpCallback(void (*function)(unsigned char, int, int)) {
+    if (function == nullptr) return;
+    glutKeyboardUpFunc(function);
+}
+
 void gameEngine::AddTexture(const char *filename, const char *Id, int type){
     if (_textures->size() > 0)
     {

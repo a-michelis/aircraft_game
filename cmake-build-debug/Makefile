@@ -257,6 +257,33 @@ lib/callbacks/callbacks.cpp.s:
 	$(MAKE) -f CMakeFiles\aircraft_game.dir\build.make CMakeFiles/aircraft_game.dir/lib/callbacks/callbacks.cpp.s
 .PHONY : lib/callbacks/callbacks.cpp.s
 
+lib/callbacks/keyboard.obj: lib/callbacks/keyboard.cpp.obj
+
+.PHONY : lib/callbacks/keyboard.obj
+
+# target to build an object file
+lib/callbacks/keyboard.cpp.obj:
+	$(MAKE) -f CMakeFiles\aircraft_game.dir\build.make CMakeFiles/aircraft_game.dir/lib/callbacks/keyboard.cpp.obj
+.PHONY : lib/callbacks/keyboard.cpp.obj
+
+lib/callbacks/keyboard.i: lib/callbacks/keyboard.cpp.i
+
+.PHONY : lib/callbacks/keyboard.i
+
+# target to preprocess a source file
+lib/callbacks/keyboard.cpp.i:
+	$(MAKE) -f CMakeFiles\aircraft_game.dir\build.make CMakeFiles/aircraft_game.dir/lib/callbacks/keyboard.cpp.i
+.PHONY : lib/callbacks/keyboard.cpp.i
+
+lib/callbacks/keyboard.s: lib/callbacks/keyboard.cpp.s
+
+.PHONY : lib/callbacks/keyboard.s
+
+# target to generate assembly for a file
+lib/callbacks/keyboard.cpp.s:
+	$(MAKE) -f CMakeFiles\aircraft_game.dir\build.make CMakeFiles/aircraft_game.dir/lib/callbacks/keyboard.cpp.s
+.PHONY : lib/callbacks/keyboard.cpp.s
+
 lib/gameEngine/gameEngine.obj: lib/gameEngine/gameEngine.cpp.obj
 
 .PHONY : lib/gameEngine/gameEngine.obj
@@ -362,6 +389,9 @@ help:
 	@echo ... lib/callbacks/callbacks.obj
 	@echo ... lib/callbacks/callbacks.i
 	@echo ... lib/callbacks/callbacks.s
+	@echo ... lib/callbacks/keyboard.obj
+	@echo ... lib/callbacks/keyboard.i
+	@echo ... lib/callbacks/keyboard.s
 	@echo ... lib/gameEngine/gameEngine.obj
 	@echo ... lib/gameEngine/gameEngine.i
 	@echo ... lib/gameEngine/gameEngine.s

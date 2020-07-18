@@ -17,9 +17,14 @@ extern float w2b;
 extern float w1r;
 extern float w2r;
 
+extern bool tl, tr;
+
 void Display();
 void Resize(int w, int h);
 void Idle();
+
+void KeyDown(unsigned char key, int x, int y);
+void KeyUp(unsigned char key, int x, int y);
 
 void Setup();
 void Close();
