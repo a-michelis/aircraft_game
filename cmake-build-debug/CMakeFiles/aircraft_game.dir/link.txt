@@ -1,0 +1,3 @@
+C:\Users\thele\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\201.7846.88\bin\cmake\win\bin\cmake.exe -E remove -f CMakeFiles\aircraft_game.dir/objects.a
+C:\MinGW\bin\ar.exe cr CMakeFiles\aircraft_game.dir/objects.a @CMakeFiles\aircraft_game.dir\objects1.rsp
+C:\MinGW\bin\g++.exe -g   -Wl,--whole-archive CMakeFiles\aircraft_game.dir/objects.a -Wl,--no-whole-archive  -o ..\output\aircraft_game.exe -Wl,--out-implib,..\output\archive\libaircraft_game.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\aircraft_game.dir\linklibs.rsp
