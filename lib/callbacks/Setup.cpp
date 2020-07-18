@@ -65,6 +65,8 @@ void Setup()
     M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-300});
     M->AddTransformation("animatedRotation", TT_ROTATE, new float[4]{0,0,1,0});
     M->AddMechanic("animatedRotation", new float*[1]{(&rot)}, new int[1]{0}, 1);
+    M->AddTransformation("zrotation", TT_ROTATE, new float[4]{0,0,0,1});
+    M->AddMechanic("zrotation", new float*[1]{(&zrot)}, new int[1]{0}, 1);
 
     M = gameEngine::AddModel("propeler", "../resources/models/propeler.obj");
     if (M == nullptr) {cout << "Error: Propeler Object Not Loaded\n"; exit(1);}
@@ -75,6 +77,8 @@ void Setup()
     M->AddTransformation("place", TT_MOVE, new float[3]{0, 0, -60});
     M->AddTransformation("elikas", TT_ROTATE, new float[4]{0, 0, 0, 1});
     M->AddMechanic("elikas", new float*[1]{&elikas}, new int[1]{0}, 1);
+    M->AddTransformation("zrotation", TT_ROTATE, new float[4]{0,0,0,1});
+    M->AddMechanic("zrotation", new float*[1]{(&zrot)}, new int[1]{0}, 1);
 
     M = gameEngine::AddModel("tail", "../resources/models/tailpiece.obj");
     if (M == nullptr) {cout << "Error: Tailpiece Object Not Loaded\n"; exit(1);}
@@ -82,6 +86,8 @@ void Setup()
     M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-300});
     M->AddTransformation("animatedRotation", TT_ROTATE, new float[4]{0,0,1,0});
     M->AddMechanic("animatedRotation", new float*[1]{(&rot)}, new int[1]{0}, 1);
+    M->AddTransformation("zrotation", TT_ROTATE, new float[4]{0,0,0,1});
+    M->AddMechanic("zrotation", new float*[1]{(&zrot)}, new int[1]{0}, 1);
 
     M = gameEngine::AddModel("wing1", "../resources/models/wing.obj");
     if (M == nullptr) {cout << "Error: Wing 1 Object Not Loaded\n"; exit(1);}
@@ -89,6 +95,8 @@ void Setup()
     M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-300});
     M->AddTransformation("animatedRotation", TT_ROTATE, new float[4]{0,0,1,0});
     M->AddMechanic("animatedRotation", new float*[1]{(&rot)}, new int[1]{0}, 1);
+    M->AddTransformation("zrotation", TT_ROTATE, new float[4]{0,0,0,1});
+    M->AddMechanic("zrotation", new float*[1]{(&zrot)}, new int[1]{0}, 1);
 
     M = gameEngine::AddModel("wing2", "../resources/models/wing.obj");
     if (M == nullptr) {cout << "Error: Wing 2 Object Not Loaded\n"; exit(1);}
@@ -97,6 +105,8 @@ void Setup()
     M->AddTransformation("animatedRotation", TT_ROTATE, new float[4]{0,0,1,0});
     M->AddMechanic("animatedRotation", new float*[1]{(&rot)}, new int[1]{0}, 1);
     M->AddTransformation("flip", TT_ROTATE, new float[4]{180,0,0,1});
+    M->AddTransformation("zrotation", TT_ROTATE, new float[4]{0,0,0,1});
+    M->AddMechanic("zrotation", new float*[1]{(&zrot)}, new int[1]{0}, 1);
 
     M = gameEngine::AddModel("flap1", "../resources/models/flap.obj");
     if (M == nullptr) {cout << "Error: Flap 1 Object Not Loaded\n"; exit(1);}
@@ -104,6 +114,12 @@ void Setup()
     M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-300});
     M->AddTransformation("animatedRotation", TT_ROTATE, new float[4]{0,0,1,0});
     M->AddMechanic("animatedRotation", new float*[1]{(&rot)}, new int[1]{0}, 1);
+    M->AddTransformation("zrotation", TT_ROTATE, new float[4]{0,0,0,1});
+    M->AddMechanic("zrotation", new float*[1]{(&zrot)}, new int[1]{0}, 1);
+    M->AddTransformation("mech_rot", TT_ROTATE, new float[4]{0,1,0,0});
+    M->AddMechanic("mech_rot", new float*[1]{(&w1r)}, new int[1]{0}, 1);
+    M->AddTransformation("mech_move", TT_MOVE, new float[3]{0,0,0});
+    M->AddMechanic("mech_move", new float*[2]{(&w1m), (&w1b)}, new int[2]{1,2}, 2);
 
     M = gameEngine::AddModel("flap2", "../resources/models/flap.obj");
     if (M == nullptr) {cout << "Error: Flap 2 Object Not Loaded\n"; exit(1);}
@@ -112,4 +128,20 @@ void Setup()
     M->AddTransformation("animatedRotation", TT_ROTATE, new float[4]{0,0,1,0});
     M->AddMechanic("animatedRotation", new float*[1]{(&rot)}, new int[1]{0}, 1);
     M->AddTransformation("flip", TT_ROTATE, new float[4]{180,0,0,1});
+    M->AddTransformation("zrotation", TT_ROTATE, new float[4]{0,0,0,1});
+    M->AddMechanic("zrotation", new float*[1]{(&zrot)}, new int[1]{0}, 1);
+    M->AddTransformation("mech_rot", TT_ROTATE, new float[4]{0,1,0,0});
+    M->AddMechanic("mech_rot", new float*[1]{(&w2r)}, new int[1]{0}, 1);
+    M->AddTransformation("mech_move", TT_MOVE, new float[3]{0,0,0});
+    M->AddMechanic("mech_move", new float*[2]{(&w2m), (&w2b)}, new int[2]{1,2}, 2);
+
+    M = gameEngine::AddModel("backflap", "../resources/models/verticalflap.obj");
+    if (M == nullptr) {cout << "Error: verticalflap Object Not Loaded\n"; exit(1);}
+    M->ModelColor = new color(0.780, 0.458, 0, 1);
+    M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-300});
+    M->AddTransformation("animatedRotation", TT_ROTATE, new float[4]{0,0,1,0});
+    M->AddMechanic("animatedRotation", new float*[1]{(&rot)}, new int[1]{0}, 1);
+    M->AddTransformation("place", TT_MOVE, new float[3]{0, 0, 94.9});
+    M->AddTransformation("zrotation", TT_ROTATE, new float[4]{0,0,0,1});
+    M->AddMechanic("zrotation", new float*[1]{(&zrot)}, new int[1]{0}, 1);
 }

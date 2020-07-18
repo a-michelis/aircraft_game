@@ -9,6 +9,13 @@
 
 extern float rot;
 extern float elikas;
+extern float zrot;
+extern float w1m;
+extern float w2m;
+extern float w1b;
+extern float w2b;
+extern float w1r;
+extern float w2r;
 
 void Display();
 void Resize(int w, int h);

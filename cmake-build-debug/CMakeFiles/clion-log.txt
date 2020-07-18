@@ -1,20 +1,4 @@
-C:\Users\thele\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\201.7846.88\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" c:\Users\thele\source\clion\aircraft_game
--- The C compiler identification is GNU 9.2.0
--- The CXX compiler identification is GNU 9.2.0
--- Check for working C compiler: C:/MinGW/bin/gcc.exe
--- Check for working C compiler: C:/MinGW/bin/gcc.exe -- works
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Detecting C compile features
--- Detecting C compile features - done
--- Check for working CXX compiler: C:/MinGW/bin/g++.exe
--- Check for working CXX compiler: C:/MinGW/bin/g++.exe -- works
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Detecting CXX compile features
--- Detecting CXX compile features - done
--- Found OpenGL: opengl32   
--- Found GLUT: C:/Strawberry/c/lib/libglut.a  
+C:\Users\thele\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\201.7846.88\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\thele\CLionProjects\aircraft
 -- Configuring done
 -- Generating done
--- Build files have been written to: C:/Users/thele/source/clion/aircraft_game/cmake-build-debug
+-- Build files have been written to: C:/Users/thele/CLionProjects/aircraft/cmake-build-debug

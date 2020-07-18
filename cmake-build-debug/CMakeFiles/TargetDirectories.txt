@@ -1,3 +1,3 @@
-C:/Users/thele/source/clion/aircraft_game/cmake-build-debug/CMakeFiles/aircraft_game.dir
-C:/Users/thele/source/clion/aircraft_game/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/thele/source/clion/aircraft_game/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/thele/CLionProjects/aircraft/cmake-build-debug/CMakeFiles/aircraft_game.dir
+C:/Users/thele/CLionProjects/aircraft/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/thele/CLionProjects/aircraft/cmake-build-debug/CMakeFiles/rebuild_cache.dir
