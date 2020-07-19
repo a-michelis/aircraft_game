@@ -10,10 +10,8 @@ C:/Users/thele/CLionProjects/aircraft/lib/BMPLoader/BMPLoader.h
 string
 -
 
-C:/Users/thele/CLionProjects/aircraft/lib/callbacks/callbacks.cpp
+C:/Users/thele/CLionProjects/aircraft/lib/callbacks/Setup.cpp
 iostream
--
-cmath
 -
 ../gameEngine/gameEngine.h
 C:/Users/thele/CLionProjects/aircraft/lib/gameEngine/gameEngine.h
@@ -21,6 +19,8 @@ C:/Users/thele/CLionProjects/aircraft/lib/gameEngine/gameEngine.h
 C:/Users/thele/CLionProjects/aircraft/lib/callbacks/callbacks.h
 ../gameEngine/gameEngine.h
 C:/Users/thele/CLionProjects/aircraft/lib/gameEngine/gameEngine.h
+../glTerrain/glTerrain.h
+C:/Users/thele/CLionProjects/aircraft/lib/glTerrain/glTerrain.h
 
 C:/Users/thele/CLionProjects/aircraft/lib/gameEngine/gameEngine.h
 GL/gl.h
@@ -39,12 +39,18 @@ C:/Users/thele/CLionProjects/aircraft/lib/glModel/glModel.h
 C:/Users/thele/CLionProjects/aircraft/lib/BMPLoader/BMPLoader.h
 ../callbacks/callbacks.h
 C:/Users/thele/CLionProjects/aircraft/lib/callbacks/callbacks.h
+../glTerrain/glTerrain.h
+C:/Users/thele/CLionProjects/aircraft/lib/glTerrain/glTerrain.h
 
 C:/Users/thele/CLionProjects/aircraft/lib/glModel/glModel.h
 vector
 -
 list
 -
+../gameEngine/gameEngine.h
+C:/Users/thele/CLionProjects/aircraft/lib/gameEngine/gameEngine.h
+
+C:/Users/thele/CLionProjects/aircraft/lib/glTerrain/glTerrain.h
 ../gameEngine/gameEngine.h
 C:/Users/thele/CLionProjects/aircraft/lib/gameEngine/gameEngine.h
 

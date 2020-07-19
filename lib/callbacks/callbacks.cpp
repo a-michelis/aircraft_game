@@ -6,7 +6,8 @@
 #include <cmath>
 #include "../gameEngine/gameEngine.h"
 
-float forReal = 0.f;
+float KeyRot = 0.f;
+float dir = 0.f;
 float rot = 0.f;
 float zrot = 0.f;
 float w1m = 0.f;
@@ -21,17 +22,26 @@ float elikas = 0.f;
 void Idle()
 {
     if (!(tl ^ tr)) {
-        forReal = forReal > 0 ? forReal - 0.72 : (forReal < 0 ? forReal + 0.72 : 0);
-        if (forReal < 0.72 && forReal > -0.72) forReal = 0;
+        KeyRot = KeyRot > 0 ? KeyRot - 0.72 : (KeyRot < 0 ? KeyRot + 0.72 : 0);
+        if (KeyRot < 0.72 && KeyRot > -0.72) KeyRot = 0;
     }
     else
     {
-        forReal += tl ? 0.72 : -0.72;
-        forReal = forReal > 90 ? 90 : (forReal < -90 ? -90 : forReal);
+        KeyRot += tl ? 1.44 : -1.44;
+        KeyRot = KeyRot > 90 ? 90 : (KeyRot < -90 ? -90 : KeyRot);
     }
 
-    zrot =60*sin(forReal * 2 * M_PI /  360);
-    //float qq =80*sin(forReal * 2 * M_PI /  360);
+    dir -= KeyRot/100.f;
+    if (dir < - 360) dir += 360;
+    if (dir > 360) dir -= 360;
+
+    //cout << "Direction: " << dir << endl;
+
+    TERA->CalcDirection(0.f - dir);
+    TERA->GenTerrain(-0.5);
+
+    zrot =60*sin(KeyRot * 2 * M_PI / 360);
+
     rot = 0.5*zrot;
 
     w1r = w2r = -0.5 * rot;

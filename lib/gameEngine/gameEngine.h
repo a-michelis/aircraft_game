@@ -16,6 +16,7 @@ using namespace std;
 #include "../glModel/glModel.h"
 #include "../BMPLoader/BMPLoader.h"
 #include "../callbacks/callbacks.h"
+#include "../glTerrain/glTerrain.h"
 
 
 class gameEngine {
@@ -56,7 +57,5 @@ public:
     // Loop Start
     static void StartLoop();
 };
-
-void dbgFunc(const char *place);
 
 #endif //AIRCRAFT_GAME_GAMEENGINE_H

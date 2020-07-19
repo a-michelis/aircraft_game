@@ -11,6 +11,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/aircraft_game.dir/lib/callbacks/keyboard.cpp.obj"
   "CMakeFiles/aircraft_game.dir/lib/gameEngine/gameEngine.cpp.obj"
   "CMakeFiles/aircraft_game.dir/lib/glModel/glModel.cpp.obj"
+  "CMakeFiles/aircraft_game.dir/lib/glTerrain/glTerrain.cpp.obj"
   "CMakeFiles/aircraft_game.dir/main.cpp.obj"
 )
 

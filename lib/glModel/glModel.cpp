@@ -61,7 +61,7 @@ void glModel::AddTransformation(const char *Id, TransformationType type, float *
     _transformations->push_back(new transformation(Id, type, args));
 
 
-    cout << "Transf Added '" << Id << "'\n";
+    //cout << "Transf Added '" << Id << "'\n";
 }
 
 void glModel::AlterTransformation(const char *Id, TransformationType Type, float *Args) {
@@ -71,12 +71,12 @@ void glModel::AlterTransformation(const char *Id, TransformationType Type, float
         if ((*it)->id->compare(Id) == 0)
         {
             (*it) = new transformation(Id, Type, Args);
-            cout << "Transf Altered '" << Id << "'\n";
+            //cout << "Transf Altered '" << Id << "'\n";
             return;
         }
     }
 
-    cout << "Transf NotFound'" << Id << "'\n";
+    //cout << "Transf NotFound'" << Id << "'\n";
 }
 
 transformation *glModel::GetTransformation(const char *Id) {
@@ -84,7 +84,7 @@ transformation *glModel::GetTransformation(const char *Id) {
 
     for (auto it = _transformations->begin(); it != _transformations->end(); it = next(it)) {
         if ((*it)->id->compare(Id) == 0) {
-            cout << "Transf Found'" << *(*it)->id << "'\n";
+            //cout << "Transf Found'" << *(*it)->id << "'\n";
             return (*it);
         }
     }
@@ -196,7 +196,7 @@ void glModel::DrawModel() {
 
     glPushMatrix();
 
-        glEnable(GL_COLOR_MATERIAL);
+        //glEnable(GL_COLOR_MATERIAL);
         if (_HasKa)             { glMaterialfv(GL_FRONT, GL_AMBIENT, new float[3]{_Ka->x, _Ka->y, _Ka->z}); }
         if (_HasKd)             { glMaterialfv(GL_FRONT, GL_DIFFUSE, new float[3]{_Kd->x, _Kd->y, _Kd->z}); }
         if (_HasKs && !_HasIl)  { glMaterialfv(GL_FRONT, GL_SPECULAR, new float[3]{_Ks->x, _Ks->y, _Ks->z}); }
@@ -206,7 +206,6 @@ void glModel::DrawModel() {
         UpdateMechanics();
         ApplyTransformations();
 
-        glLineWidth(4);
         glBegin(GL_TRIANGLES);
             glColor4f(ModelColor->r, ModelColor->g, ModelColor->b, ModelColor->a);
             for(auto it = _triangles->begin(); it != _triangles->end(); it = next(it))
@@ -242,7 +241,7 @@ void glModel::DrawModel() {
             }
         glEnd();
 
-        glDisable(GL_COLOR_MATERIAL);
+        //glDisable(GL_COLOR_MATERIAL);
     glPopMatrix();
 }
 
@@ -407,7 +406,6 @@ void glModel::ApplyTransformations() {
         }
 //        string *st = new string();
 //        st->append(ModelName->c_str()); st->append("-"); st-> append(t->id->c_str());
-//        dbgFunc(st->c_str());
     }
 }
 

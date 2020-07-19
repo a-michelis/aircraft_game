@@ -44,12 +44,13 @@ public:
     void RemoveTransformation(const char* Id);
     void RemoveTransformations();
 
+    void DrawModel();
+
     void AddMechanic(const char* Id, float **Dependencies, int indexes[], int indexCount);
     void AlterMechanic(const char* Id, float **Dependencies, int indexes[], int indexCount);
     void RemoveMechanic(const char* Id, bool RemoveTransformationAsWell = false);
     void RemoveMechanics(bool RemoveTransformationsAsWell = false);
 
-    void DrawModel();
 private:
     void LoadFromFile(const char *filename);
     void LoadMaterials(const char *filename);

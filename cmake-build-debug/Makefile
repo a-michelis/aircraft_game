@@ -338,6 +338,33 @@ lib/glModel/glModel.cpp.s:
 	$(MAKE) -f CMakeFiles\aircraft_game.dir\build.make CMakeFiles/aircraft_game.dir/lib/glModel/glModel.cpp.s
 .PHONY : lib/glModel/glModel.cpp.s
 
+lib/glTerrain/glTerrain.obj: lib/glTerrain/glTerrain.cpp.obj
+
+.PHONY : lib/glTerrain/glTerrain.obj
+
+# target to build an object file
+lib/glTerrain/glTerrain.cpp.obj:
+	$(MAKE) -f CMakeFiles\aircraft_game.dir\build.make CMakeFiles/aircraft_game.dir/lib/glTerrain/glTerrain.cpp.obj
+.PHONY : lib/glTerrain/glTerrain.cpp.obj
+
+lib/glTerrain/glTerrain.i: lib/glTerrain/glTerrain.cpp.i
+
+.PHONY : lib/glTerrain/glTerrain.i
+
+# target to preprocess a source file
+lib/glTerrain/glTerrain.cpp.i:
+	$(MAKE) -f CMakeFiles\aircraft_game.dir\build.make CMakeFiles/aircraft_game.dir/lib/glTerrain/glTerrain.cpp.i
+.PHONY : lib/glTerrain/glTerrain.cpp.i
+
+lib/glTerrain/glTerrain.s: lib/glTerrain/glTerrain.cpp.s
+
+.PHONY : lib/glTerrain/glTerrain.s
+
+# target to generate assembly for a file
+lib/glTerrain/glTerrain.cpp.s:
+	$(MAKE) -f CMakeFiles\aircraft_game.dir\build.make CMakeFiles/aircraft_game.dir/lib/glTerrain/glTerrain.cpp.s
+.PHONY : lib/glTerrain/glTerrain.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -398,6 +425,9 @@ help:
 	@echo ... lib/glModel/glModel.obj
 	@echo ... lib/glModel/glModel.i
 	@echo ... lib/glModel/glModel.s
+	@echo ... lib/glTerrain/glTerrain.obj
+	@echo ... lib/glTerrain/glTerrain.i
+	@echo ... lib/glTerrain/glTerrain.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

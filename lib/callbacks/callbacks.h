@@ -6,8 +6,10 @@
 #define AIRCRAFT_GAME_CALLBACKS_H
 
 #include "../gameEngine/gameEngine.h"
+#include "../glTerrain/glTerrain.h"
 
 extern float rot;
+extern float dir;
 extern float elikas;
 extern float zrot;
 extern float w1m;
@@ -16,6 +18,7 @@ extern float w1b;
 extern float w2b;
 extern float w1r;
 extern float w2r;
+extern glTerrain *TERA;
 
 extern bool tl, tr;
 

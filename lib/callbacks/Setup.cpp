@@ -5,14 +5,26 @@
 #include <iostream>
 #include "../gameEngine/gameEngine.h"
 
-glModel *M;
+glTerrain *TERA = new glTerrain(300, 1600, -1, 40, 0.1,
+    new float[8] {0, 0.05, 0.06, 0.3, 0.4, 0.7, 0.8, 1},
+    new vec3f*[8]{
+        new vec3f(0.094118, 0.188235, 0.388235),
+        new vec3f(0.298039, 0.380392, 0.560784),
+        new vec3f(0.254902, 0.580392, 0.278431),
+        new vec3f(0.372549, 0.529412, 0.384314),
+        new vec3f(0.701961, 0.709804, 0.611765),
+        new vec3f(0.870588, 0.878431, 0.756863),
+        new vec3f(0.941176, 0.941176, 0.941176),
+        new vec3f(1,1,1)
+    },
+    8a
+);
 
 void Setup()
 {
     GLfloat ambientLight[] = {0.2f, 0.2f, 0.2f, 1.0f};
     GLfloat diffuseLight[] = {0.8f, 0.8f, 0.8f, 1.0f};
     GLfloat lightPos[] = {0.0f, 0.0f, 1.0f, 0.0f};
-    dbgFunc("setup-vars");
 
     glEnable(GL_CULL_FACE);
     glFrontFace(GL_CCW);
@@ -21,7 +33,6 @@ void Setup()
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    dbgFunc("setup-Depth");
 
 
     glEnable(GL_FOG);
@@ -32,17 +43,14 @@ void Setup()
     glFogf (GL_FOG_START, 500);
     glFogf (GL_FOG_END, 700);
     glHint (GL_FOG_HINT, GL_NICEST);
-    dbgFunc("setup-fog");
 
     //BLENDING STUFF
 
     glEnable(GL_COLOR_MATERIAL);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-    dbgFunc("setup-mat");
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ZERO);
-    dbgFunc("setup-blend");
     //glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
 
     glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
@@ -51,7 +59,6 @@ void Setup()
 
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHTING);
-    dbgFunc("setup-lights");
 
     glClearColor(0.862, 0.937, 0.933, 1.0f);
 
@@ -59,7 +66,7 @@ void Setup()
 
     //// MODEL LOADING ////////////////////////////////////////////////////////////////////////////////////
 
-    M = gameEngine::AddModel("body","../resources/models/body.obj");
+    glModel *M = gameEngine::AddModel("body","../resources/models/body.obj");
     if (M == nullptr) {cout << "Error: Body Object Not Loaded\n"; exit(1);}
     M->ModelColor = new color(1, 0.823, 0.239, 1);
     M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-300});

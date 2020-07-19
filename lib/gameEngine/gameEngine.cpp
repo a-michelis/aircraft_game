@@ -264,8 +264,3 @@ void gameEngine::StartLoop() {
 }
 
 
-void dbgFunc(const char *place )
-{
-    GLuint e = glGetError();
-    cout << "DBG:\t[" << place << "] -> " << gluErrorString(e) << endl;
-}

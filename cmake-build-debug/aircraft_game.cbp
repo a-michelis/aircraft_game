@@ -116,6 +116,12 @@
 		<Unit filename="C:/Users/thele/CLionProjects/aircraft/lib/glModel/glModel.h">
 			<Option target="aircraft_game"/>
 		</Unit>
+		<Unit filename="C:/Users/thele/CLionProjects/aircraft/lib/glTerrain/glTerrain.cpp">
+			<Option target="aircraft_game"/>
+		</Unit>
+		<Unit filename="C:/Users/thele/CLionProjects/aircraft/lib/glTerrain/glTerrain.h">
+			<Option target="aircraft_game"/>
+		</Unit>
 		<Unit filename="C:/Users/thele/CLionProjects/aircraft/lib/structs.h">
 			<Option target="aircraft_game"/>
 		</Unit>
