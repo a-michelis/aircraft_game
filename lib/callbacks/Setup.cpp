@@ -5,7 +5,7 @@
 #include <iostream>
 #include "../gameEngine/gameEngine.h"
 
-glTerrain *TERA = new glTerrain(300, 1600, -1, 40, 0.1,
+glTerrain *TERA = new glTerrain(200, 1600, -1, 100, 0.1,
     new float[8] {0, 0.05, 0.06, 0.3, 0.4, 0.7, 0.8, 1},
     new vec3f*[8]{
         new vec3f(0.094118, 0.188235, 0.388235),
@@ -17,7 +17,7 @@ glTerrain *TERA = new glTerrain(300, 1600, -1, 40, 0.1,
         new vec3f(0.941176, 0.941176, 0.941176),
         new vec3f(1,1,1)
     },
-    8a
+    8
 );
 
 void Setup()
@@ -38,10 +38,10 @@ void Setup()
     glEnable(GL_FOG);
 
     glFogi (GL_FOG_MODE, GL_LINEAR);
-    glFogfv (GL_FOG_COLOR, new float[4]{0.862, 0.937, 0.933, 0.5});
+    glFogfv (GL_FOG_COLOR, new float[4]{0.862, 0.937, 0.933, 0.3});
     glFogf (GL_FOG_DENSITY, 0.2);
-    glFogf (GL_FOG_START, 500);
-    glFogf (GL_FOG_END, 700);
+    glFogf (GL_FOG_START, 400);
+    glFogf (GL_FOG_END, 600);
     glHint (GL_FOG_HINT, GL_NICEST);
 
     //BLENDING STUFF

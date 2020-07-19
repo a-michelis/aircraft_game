@@ -16,19 +16,26 @@ float w1b = 0.f;
 float w2b = 0.f;
 float w1r = 0.f;
 float w2r = 0.f;
+float spd = -3.f;
 
 float elikas = 0.f;
 
 void Idle()
 {
     if (!(tl ^ tr)) {
-        KeyRot = KeyRot > 0 ? KeyRot - 0.72 : (KeyRot < 0 ? KeyRot + 0.72 : 0);
-        if (KeyRot < 0.72 && KeyRot > -0.72) KeyRot = 0;
+        KeyRot = KeyRot > 0 ? KeyRot - 2.8 : (KeyRot < 0 ? KeyRot + 2.8 : 0);
+        if (KeyRot < 2.8 && KeyRot > -2.8) KeyRot = 0;
     }
     else
     {
-        KeyRot += tl ? 1.44 : -1.44;
+        KeyRot += tl ? 3.6 : -3.6;
         KeyRot = KeyRot > 90 ? 90 : (KeyRot < -90 ? -90 : KeyRot);
+    }
+
+    if ((f ^ s))
+    {
+        spd += f ? -0.05 : 0.05;
+        spd = spd < -15 ? -15 : (spd > -3 ? -3 : spd);
     }
 
     dir -= KeyRot/100.f;
@@ -38,7 +45,7 @@ void Idle()
     //cout << "Direction: " << dir << endl;
 
     TERA->CalcDirection(0.f - dir);
-    TERA->GenTerrain(-0.5);
+    TERA->GenTerrain(spd/10);
 
     zrot =60*sin(KeyRot * 2 * M_PI / 360);
 
@@ -52,7 +59,7 @@ void Idle()
     w1b =  cos(w2r / (360/(2*M_PI)));
     w2b =  cos(w2r / (360/(2*M_PI)));
 
-    elikas = fmod(elikas + 12, 360);
+    elikas = fmod(elikas + 36, 360);
 
     glutPostRedisplay();
 }

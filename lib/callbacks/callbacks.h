@@ -18,9 +18,10 @@ extern float w1b;
 extern float w2b;
 extern float w1r;
 extern float w2r;
+extern float spd;
 extern glTerrain *TERA;
 
-extern bool tl, tr;
+extern bool tl, tr, f, s;
 
 void Display();
 void Resize(int w, int h);

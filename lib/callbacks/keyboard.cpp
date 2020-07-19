@@ -7,6 +7,8 @@
 
 bool tl = false;
 bool tr = false;
+bool f = false;
+bool s = false;
 
 void KeyDown(unsigned char key, int x, int y)
 {
@@ -20,6 +22,12 @@ void KeyDown(unsigned char key, int x, int y)
         case 'd':
             tr = true;
             break;
+        case 'w':
+            f = true;
+            break;
+        case 's':
+            s = true;
+            break;
     }
 }
 void KeyUp(unsigned char key, int x, int y)
@@ -31,6 +39,12 @@ void KeyUp(unsigned char key, int x, int y)
             break;
         case 'd':
             tr = false;
+            break;
+        case 'w':
+            f = false;
+            break;
+        case 's':
+            s = false;
             break;
     }
 }

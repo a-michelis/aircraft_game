@@ -6,23 +6,23 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/thele/CLionProjects/aircraft/lib/BMPLoader/BMPLoader.h
+C:/Users/thele/source/clion/aircraft_game/lib/BMPLoader/BMPLoader.h
 string
 -
 
-C:/Users/thele/CLionProjects/aircraft/lib/callbacks/Setup.cpp
+C:/Users/thele/source/clion/aircraft_game/lib/callbacks/Setup.cpp
 iostream
 -
 ../gameEngine/gameEngine.h
-C:/Users/thele/CLionProjects/aircraft/lib/gameEngine/gameEngine.h
+C:/Users/thele/source/clion/aircraft_game/lib/gameEngine/gameEngine.h
 
-C:/Users/thele/CLionProjects/aircraft/lib/callbacks/callbacks.h
+C:/Users/thele/source/clion/aircraft_game/lib/callbacks/callbacks.h
 ../gameEngine/gameEngine.h
-C:/Users/thele/CLionProjects/aircraft/lib/gameEngine/gameEngine.h
+C:/Users/thele/source/clion/aircraft_game/lib/gameEngine/gameEngine.h
 ../glTerrain/glTerrain.h
-C:/Users/thele/CLionProjects/aircraft/lib/glTerrain/glTerrain.h
+C:/Users/thele/source/clion/aircraft_game/lib/glTerrain/glTerrain.h
 
-C:/Users/thele/CLionProjects/aircraft/lib/gameEngine/gameEngine.h
+C:/Users/thele/source/clion/aircraft_game/lib/gameEngine/gameEngine.h
 GL/gl.h
 -
 GL/glu.h
@@ -32,31 +32,31 @@ GL/glut.h
 vector
 -
 ../structs.h
-C:/Users/thele/CLionProjects/aircraft/lib/structs.h
+C:/Users/thele/source/clion/aircraft_game/lib/structs.h
 ../glModel/glModel.h
-C:/Users/thele/CLionProjects/aircraft/lib/glModel/glModel.h
+C:/Users/thele/source/clion/aircraft_game/lib/glModel/glModel.h
 ../BMPLoader/BMPLoader.h
-C:/Users/thele/CLionProjects/aircraft/lib/BMPLoader/BMPLoader.h
+C:/Users/thele/source/clion/aircraft_game/lib/BMPLoader/BMPLoader.h
 ../callbacks/callbacks.h
-C:/Users/thele/CLionProjects/aircraft/lib/callbacks/callbacks.h
+C:/Users/thele/source/clion/aircraft_game/lib/callbacks/callbacks.h
 ../glTerrain/glTerrain.h
-C:/Users/thele/CLionProjects/aircraft/lib/glTerrain/glTerrain.h
+C:/Users/thele/source/clion/aircraft_game/lib/glTerrain/glTerrain.h
 
-C:/Users/thele/CLionProjects/aircraft/lib/glModel/glModel.h
+C:/Users/thele/source/clion/aircraft_game/lib/glModel/glModel.h
 vector
 -
 list
 -
 ../gameEngine/gameEngine.h
-C:/Users/thele/CLionProjects/aircraft/lib/gameEngine/gameEngine.h
+C:/Users/thele/source/clion/aircraft_game/lib/gameEngine/gameEngine.h
 
-C:/Users/thele/CLionProjects/aircraft/lib/glTerrain/glTerrain.h
+C:/Users/thele/source/clion/aircraft_game/lib/glTerrain/glTerrain.h
 ../gameEngine/gameEngine.h
-C:/Users/thele/CLionProjects/aircraft/lib/gameEngine/gameEngine.h
+C:/Users/thele/source/clion/aircraft_game/lib/gameEngine/gameEngine.h
 
-C:/Users/thele/CLionProjects/aircraft/lib/structs.h
+C:/Users/thele/source/clion/aircraft_game/lib/structs.h
 string
 -
 gameEngine/gameEngine.h
-C:/Users/thele/CLionProjects/aircraft/lib/gameEngine/gameEngine.h
+C:/Users/thele/source/clion/aircraft_game/lib/gameEngine/gameEngine.h
 

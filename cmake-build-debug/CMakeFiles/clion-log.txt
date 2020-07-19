@@ -1,4 +1,4 @@
-C:\Users\thele\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\201.7846.88\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\thele\CLionProjects\aircraft
+C:\Users\thele\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\201.7846.88\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\thele\source\clion\aircraft_game
 -- Configuring done
 -- Generating done
--- Build files have been written to: C:/Users/thele/CLionProjects/aircraft/cmake-build-debug
+-- Build files have been written to: C:/Users/thele/source/clion/aircraft_game/cmake-build-debug

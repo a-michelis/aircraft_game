@@ -95,8 +95,8 @@ void glTerrain::GenTerrain(float speed) {
         {
 
             float res = noise(i,j, _pitch);
-            res += 0.4 * noise(i,j, _pitch * 2.5);
-            res += 0.04 * noise(i,j, _pitch * 25);
+            res += 0.1 * noise(i,j, _pitch * 10);
+            res += 0.01 * noise(i,j, _pitch * 100);
             res /= 1.44;
             res = res * (_max - _min) + _min;
             _HeightMap[i][j] = res < _min ? _min : res;
@@ -140,10 +140,7 @@ void glTerrain::TerrainColor(float height) {
 
     float bln = (height - _color_bounds[pi]) / (_color_bounds[i] - _color_bounds[pi]);
 
-    vec3f *res = new vec3f(
-            (1-bln) * _colors[pi]->x + bln * _colors[i]->x,
-            (1-bln) * _colors[pi]->y + bln * _colors[i]->y,
-            (1-bln) * _colors[pi]->z + bln * _colors[i]->z
-    );
-    glColor3f(res->x, res->y, res->z);
+    glColor3f((1-bln) * _colors[pi]->x + bln * _colors[i]->x
+            , (1-bln) * _colors[pi]->y + bln * _colors[i]->y
+            , (1-bln) * _colors[pi]->z + bln * _colors[i]->z);
 }
