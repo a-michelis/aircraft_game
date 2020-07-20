@@ -21,18 +21,25 @@ float spd = -3.f;
 float elikas = 0.f;
 int dbgf = 0;
 
+chrono::steady_clock::time_point t_begin;
+
 void dbg();
 
 void Idle()
 {
+
+    while (chrono::duration_cast<chrono::microseconds>(chrono::steady_clock::now() - t_begin).count() < 16666){}
+    t_begin = chrono::steady_clock::now();
+
+
     if (!(tl ^ tr)) {
         KeyRot = KeyRot > 0 ? KeyRot - 2.8 : (KeyRot < 0 ? KeyRot + 2.8 : 0);
         if (KeyRot < 2.8 && KeyRot > -2.8) KeyRot = 0;
     }
     else
     {
-        KeyRot += tl ? 3.6 : -3.6;
-        KeyRot = KeyRot > 90 ? 90 : (KeyRot < -90 ? -90 : KeyRot);
+        KeyRot += tl ? 3.6 + (0.05 * (0-spd)) : -3.6 - (0.05 * (0-spd));
+        KeyRot = KeyRot > 90 ? 90 : (KeyRot < -90  ? -90 : KeyRot);
     }
 
     if ((f ^ s))

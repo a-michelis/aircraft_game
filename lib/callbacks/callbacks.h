@@ -5,6 +5,7 @@
 #ifndef AIRCRAFT_GAME_CALLBACKS_H
 #define AIRCRAFT_GAME_CALLBACKS_H
 
+#include <chrono>
 #include "../gameEngine/gameEngine.h"
 #include "../glTerrain/glTerrain.h"
 
@@ -22,6 +23,7 @@ extern float w1r;
 extern float w2r;
 extern float spd;
 extern glTerrain *TERA;
+extern chrono::steady_clock::time_point t_begin;
 
 extern bool tl, tr, f, s;
 

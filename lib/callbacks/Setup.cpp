@@ -23,6 +23,7 @@ glTerrain *TERA = new glTerrain(250, 1600, -1, 100, 0.08,
 
 void Setup()
 {
+    t_begin = chrono::steady_clock::now();
     GLfloat ambientLight[] = {0.01f, 0.01f, 0.01f, 0.4f};
     GLfloat diffuseLight[] = {0.6f, 0.6f, 0.6f, 0.4f};
 
