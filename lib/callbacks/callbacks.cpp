@@ -90,4 +90,6 @@ void dbg()
 
 void Close()
 {
+    gameEngine::RemoveAllModels();
+    gameEngine::RemoveAllTextures();
 }

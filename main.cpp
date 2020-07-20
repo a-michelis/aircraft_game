@@ -2,7 +2,18 @@
 #include "lib/gameEngine/gameEngine.h"
 
 int main(int argc, char *argv[]) {
-    std::cout << "Hello, World!" << std::endl;
+
+    cout << "Aircraft Game!" << endl;
+    cout << "Michelis Andreas [2022 2013 00097]" << endl;
+    cout << endl;
+    cout << "Controls:" << endl;
+    cout << "\tW: Speed up" << endl;
+    cout << "\tA: Turn left" << endl;
+    cout << "\tS: Slow down" << endl;
+    cout << "\tD: Turn right" << endl;
+    cout << endl;
+    cout << "Press ENTER to continue..." << endl;
+    cin.get();
 
     gameEngine::Init(
             new vec2(40, 40),
@@ -20,7 +31,6 @@ int main(int argc, char *argv[]) {
     gameEngine::KeyDownCallback(KeyDown);
     gameEngine::KeyUpCallback(KeyUp);
 
-    //glutErrorFunc()
 
     gameEngine::StartLoop();
 

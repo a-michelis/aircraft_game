@@ -147,6 +147,7 @@ GLuint gameEngine::GetTexture(const char *Id) {
             return (*it)->texId;
         }
     }
+    return 0;
 }
 
 void gameEngine::SetTexture(GLuint texid) {
