@@ -41,7 +41,8 @@ public:
 
     // Texture Handling Functions
     static void AddTexture(const char *filename, const char *Id, int type);
-    static void SetTexture(const char *Id);
+    static GLuint GetTexture(const char *Id);
+    static void SetTexture(GLuint texid);
     static void UnsetTexture();
     static void RemoveTexture(const char *Id);
     static void RemoveAllTextures();

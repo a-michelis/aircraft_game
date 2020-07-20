@@ -5,7 +5,10 @@
 #include <iostream>
 #include "../gameEngine/gameEngine.h"
 
-glTerrain *TERA = new glTerrain(200, 1600, -1, 100, 0.1,
+
+GLfloat lightPos[] = {10.0f, 50.0f, -90.f, 0.0f};
+
+glTerrain *TERA = new glTerrain(250, 1600, -1, 100, 0.08,
     new float[8] {0, 0.05, 0.06, 0.3, 0.4, 0.7, 0.8, 1},
     new vec3f*[8]{
         new vec3f(0.094118, 0.188235, 0.388235),
@@ -22,9 +25,8 @@ glTerrain *TERA = new glTerrain(200, 1600, -1, 100, 0.1,
 
 void Setup()
 {
-    GLfloat ambientLight[] = {0.2f, 0.2f, 0.2f, 1.0f};
-    GLfloat diffuseLight[] = {0.8f, 0.8f, 0.8f, 1.0f};
-    GLfloat lightPos[] = {0.0f, 0.0f, 1.0f, 0.0f};
+    GLfloat ambientLight[] = {0.01f, 0.01f, 0.01f, 0.4f};
+    GLfloat diffuseLight[] = {0.6f, 0.6f, 0.6f, 0.4f};
 
     glEnable(GL_CULL_FACE);
     glFrontFace(GL_CCW);
@@ -50,7 +52,7 @@ void Setup()
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 
     glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ZERO);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     //glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
 
     glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
@@ -62,14 +64,20 @@ void Setup()
 
     glClearColor(0.862, 0.937, 0.933, 1.0f);
 
-    //glEnable(GL_TEXTURE_2D);
+    //// TEXTURE LOADING //////////////////////////////////////////////////////////////////////////////////
+
+    glEnable(GL_TEXTURE_2D);
+    gameEngine::AddTexture("../resources/textures/flora.bmp", "low", GL_LINEAR);
+    gameEngine::AddTexture("../resources/textures/mixed.bmp", "mid", GL_LINEAR);
+    gameEngine::AddTexture("../resources/textures/dirt.bmp", "high", GL_LINEAR);
 
     //// MODEL LOADING ////////////////////////////////////////////////////////////////////////////////////
 
     glModel *M = gameEngine::AddModel("body","../resources/models/body.obj");
     if (M == nullptr) {cout << "Error: Body Object Not Loaded\n"; exit(1);}
     M->ModelColor = new color(1, 0.823, 0.239, 1);
-    M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-300});
+    M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-90});
+    M->AddTransformation("scale", TT_SCALE, new float[3]{0.3,0.3,0.3});
     M->AddTransformation("animatedRotation", TT_ROTATE, new float[4]{0,0,1,0});
     M->AddMechanic("animatedRotation", new float*[1]{(&rot)}, new int[1]{0}, 1);
     M->AddTransformation("zrotation", TT_ROTATE, new float[4]{0,0,0,1});
@@ -78,7 +86,8 @@ void Setup()
     M = gameEngine::AddModel("propeler", "../resources/models/propeler.obj");
     if (M == nullptr) {cout << "Error: Propeler Object Not Loaded\n"; exit(1);}
     M->ModelColor = new color(0.478, 0.478, 0.478, 1);
-    M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-300});
+    M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-90});
+    M->AddTransformation("scale", TT_SCALE, new float[3]{0.3,0.3,0.3});
     M->AddTransformation("animatedRotation", TT_ROTATE, new float[4]{0,0,1,0});
     M->AddMechanic("animatedRotation", new float*[1]{(&rot)}, new int[1]{0}, 1);
     M->AddTransformation("place", TT_MOVE, new float[3]{0, 0, -60});
@@ -90,7 +99,8 @@ void Setup()
     M = gameEngine::AddModel("tail", "../resources/models/tailpiece.obj");
     if (M == nullptr) {cout << "Error: Tailpiece Object Not Loaded\n"; exit(1);}
     M->ModelColor = new color(1, 0.823, 0.239, 1);
-    M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-300});
+    M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-90});
+    M->AddTransformation("scale", TT_SCALE, new float[3]{0.3,0.3,0.3});
     M->AddTransformation("animatedRotation", TT_ROTATE, new float[4]{0,0,1,0});
     M->AddMechanic("animatedRotation", new float*[1]{(&rot)}, new int[1]{0}, 1);
     M->AddTransformation("zrotation", TT_ROTATE, new float[4]{0,0,0,1});
@@ -99,7 +109,8 @@ void Setup()
     M = gameEngine::AddModel("wing1", "../resources/models/wing.obj");
     if (M == nullptr) {cout << "Error: Wing 1 Object Not Loaded\n"; exit(1);}
     M->ModelColor = new color(0.901, 0.6, 0.098, 1);
-    M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-300});
+    M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-90});
+    M->AddTransformation("scale", TT_SCALE, new float[3]{0.3,0.3,0.3});
     M->AddTransformation("animatedRotation", TT_ROTATE, new float[4]{0,0,1,0});
     M->AddMechanic("animatedRotation", new float*[1]{(&rot)}, new int[1]{0}, 1);
     M->AddTransformation("zrotation", TT_ROTATE, new float[4]{0,0,0,1});
@@ -108,7 +119,8 @@ void Setup()
     M = gameEngine::AddModel("wing2", "../resources/models/wing.obj");
     if (M == nullptr) {cout << "Error: Wing 2 Object Not Loaded\n"; exit(1);}
     M->ModelColor = new color(0.901, 0.6, 0.098, 1);
-    M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-300});
+    M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-90});
+    M->AddTransformation("scale", TT_SCALE, new float[3]{0.3,0.3,0.3});
     M->AddTransformation("animatedRotation", TT_ROTATE, new float[4]{0,0,1,0});
     M->AddMechanic("animatedRotation", new float*[1]{(&rot)}, new int[1]{0}, 1);
     M->AddTransformation("flip", TT_ROTATE, new float[4]{180,0,0,1});
@@ -118,7 +130,8 @@ void Setup()
     M = gameEngine::AddModel("flap1", "../resources/models/flap.obj");
     if (M == nullptr) {cout << "Error: Flap 1 Object Not Loaded\n"; exit(1);}
     M->ModelColor = new color(0.780, 0.458, 0, 1);
-    M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-300});
+    M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-90});
+    M->AddTransformation("scale", TT_SCALE, new float[3]{0.3,0.3,0.3});
     M->AddTransformation("animatedRotation", TT_ROTATE, new float[4]{0,0,1,0});
     M->AddMechanic("animatedRotation", new float*[1]{(&rot)}, new int[1]{0}, 1);
     M->AddTransformation("zrotation", TT_ROTATE, new float[4]{0,0,0,1});
@@ -131,7 +144,8 @@ void Setup()
     M = gameEngine::AddModel("flap2", "../resources/models/flap.obj");
     if (M == nullptr) {cout << "Error: Flap 2 Object Not Loaded\n"; exit(1);}
     M->ModelColor = new color(0.780, 0.458, 0, 1);
-    M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-300});
+    M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-90});
+    M->AddTransformation("scale", TT_SCALE, new float[3]{0.3,0.3,0.3});
     M->AddTransformation("animatedRotation", TT_ROTATE, new float[4]{0,0,1,0});
     M->AddMechanic("animatedRotation", new float*[1]{(&rot)}, new int[1]{0}, 1);
     M->AddTransformation("flip", TT_ROTATE, new float[4]{180,0,0,1});
@@ -145,7 +159,8 @@ void Setup()
     M = gameEngine::AddModel("backflap", "../resources/models/verticalflap.obj");
     if (M == nullptr) {cout << "Error: verticalflap Object Not Loaded\n"; exit(1);}
     M->ModelColor = new color(0.780, 0.458, 0, 1);
-    M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-300});
+    M->AddTransformation("init", TT_MOVE, new float[3]{0,0,-90});
+    M->AddTransformation("scale", TT_SCALE, new float[3]{0.3,0.3,0.3});
     M->AddTransformation("animatedRotation", TT_ROTATE, new float[4]{0,0,1,0});
     M->AddMechanic("animatedRotation", new float*[1]{(&rot)}, new int[1]{0}, 1);
     M->AddTransformation("place", TT_MOVE, new float[3]{0, 0, 94.9});

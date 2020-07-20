@@ -19,6 +19,9 @@ float w2r = 0.f;
 float spd = -3.f;
 
 float elikas = 0.f;
+int dbgf = 0;
+
+void dbg();
 
 void Idle()
 {
@@ -34,8 +37,8 @@ void Idle()
 
     if ((f ^ s))
     {
-        spd += f ? -0.05 : 0.05;
-        spd = spd < -15 ? -15 : (spd > -3 ? -3 : spd);
+        spd += f ? -0.5 : 0.5;
+        spd = spd < -25 ? -25 : (spd > -3 ? -3 : spd);
     }
 
     dir -= KeyRot/100.f;
@@ -43,6 +46,14 @@ void Idle()
     if (dir > 360) dir -= 360;
 
     //cout << "Direction: " << dir << endl;
+    lightPos[0] = cos(dir * (2* M_PI) / 360)*100;
+    lightPos[2] = sin(dir * (2* M_PI) / 360)*100 -90.f;
+
+    //glDisable(GL_LIGHTING);
+    //glDisable(GL_LIGHT0);
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+    //glEnable(GL_LIGHT0);
+    //glEnable(GL_LIGHTING);
 
     TERA->CalcDirection(0.f - dir);
     TERA->GenTerrain(spd/10);
@@ -59,11 +70,22 @@ void Idle()
     w1b =  cos(w2r / (360/(2*M_PI)));
     w2b =  cos(w2r / (360/(2*M_PI)));
 
-    elikas = fmod(elikas + 36, 360);
+    elikas = fmod(elikas + (10-(1.5*spd)), 360);
+
+
+    dbgf = (dbgf+1)%10;
+    if(dbgf==0) dbg();
 
     glutPostRedisplay();
 }
 
+void dbg()
+{
+    cout << "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b";
+    cout << "                                                            ";
+    cout << "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b";
+    cout << "DBG: Position: [" << TERA->Position->x << ", " << TERA->Position->y << "]";
+}
 
 
 

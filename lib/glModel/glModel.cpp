@@ -325,7 +325,7 @@ void glModel::LoadMaterials(const char *filename) {
             float x, y, z;
             if (!(iss >> cd >> x >> y >> z)) { break; } // error
 
-            _Ka = new vec3f(x, y, z);
+            _Ka = new vec3f(x*0.3, y*0.3, z*0.3);
             _HasKa = true;
         }
 
@@ -335,7 +335,7 @@ void glModel::LoadMaterials(const char *filename) {
             float x, y, z;
             if (!(iss >> cd >> x >> y >> z)) { break; } // error
 
-            _Kd = new vec3f(x, y, z);
+            _Kd = new vec3f(x*0.3, y*0.3, z*0.3);
             _HasKd = true;
         }
 
@@ -345,7 +345,7 @@ void glModel::LoadMaterials(const char *filename) {
             float x, y, z;
             if (!(iss >> cd >> x >> y >> z)) { break; } // error
 
-            _Ks = new vec3f(x, y, z);
+            _Ks = new vec3f(x*0.3, y*0.3, z*0.3);
             _HasKs = true;
         }
 
@@ -355,7 +355,7 @@ void glModel::LoadMaterials(const char *filename) {
             float x;
             if (!(iss >> cd >> x)) { break; } // error
 
-            _il = x;
+            _il = x*0.3;
             _HasIl = true;
         }
 
@@ -365,7 +365,7 @@ void glModel::LoadMaterials(const char *filename) {
             float x;
             if (!(iss >> cd >> x)) { break; } // error
 
-            _ns = x;
+            _ns = x*0.3;
             _HasNs = true;
         }
         else continue;

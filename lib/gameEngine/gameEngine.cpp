@@ -137,19 +137,21 @@ void gameEngine::AddTexture(const char *filename, const char *Id, int type){
     _textures->push_back(new texture(tex, Id));
 }
 
-void gameEngine::SetTexture(const char *Id) {
-    if (_textures->size() == 0) return;
+GLuint gameEngine::GetTexture(const char *Id) {
+    if (_textures->size() == 0) return 0;
 
     for (auto it = _textures->begin(); it != _textures->end(); it = next(it))
     {
         if ((*it)->id->compare(Id) == 0)
         {
-            glEnable(GL_TEXTURE_2D);
-            glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-            glBindTexture(GL_TEXTURE_2D, (*it)->texId);
-            return;
+            return (*it)->texId;
         }
     }
+}
+
+void gameEngine::SetTexture(GLuint texid) {
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texid);
 }
 
 void gameEngine::UnsetTexture() {

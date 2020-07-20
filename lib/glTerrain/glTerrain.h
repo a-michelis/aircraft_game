@@ -24,7 +24,7 @@ public:
     vec2f *Direction = new vec2f(0, 1);
 
     glTerrain(int size, float actualsize, float y_min, float y_max, float pitch, float *col_bounds = nullptr, vec3f **cols = nullptr, int colCount = 0);
-    void DrawModel();
+    void DrawModel(float resolution);
     static float RandRange(float min, float max);
     void CalcDirection(float angle);
     void GenTerrain(float speed);

@@ -8,6 +8,8 @@
 #include "../gameEngine/gameEngine.h"
 #include "../glTerrain/glTerrain.h"
 
+extern GLfloat lightPos[];
+
 extern float rot;
 extern float dir;
 extern float elikas;
