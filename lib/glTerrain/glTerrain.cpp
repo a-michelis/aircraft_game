@@ -3,11 +3,12 @@
 //
 
 #include <cmath>
+#include <iostream>
 #include "../gameEngine/gameEngine.h"
 #include "glTerrain.h"
 
 
-glTerrain::glTerrain(int size, float actualsize, float y_min, float y_max, float pitch, float *col_bounds, vec3f **cols, int colCount) {
+glTerrain::glTerrain(int size, float actualsize, float y_min, float y_max, float pitch, vec2f **texture_bounds, const char **textures, int texCount) {
     srand(NULL);
 
     Direction = new vec2f(0, 1);
@@ -27,40 +28,40 @@ glTerrain::glTerrain(int size, float actualsize, float y_min, float y_max, float
 
         for(int j = 0; j < _size; j++) _NoiseMap[i][j] = RandRange(-1,1);
     }
-
-    if (colCount > 0)
+    _texCount = texCount;
+    if (texCount > 0)
     {
-        _colorCount = colCount;
-        _color_bounds = new float[colCount];
-        _colors = new vec3f*[colCount];
-        for(int i = 0; i < colCount; i++)
+        _texCount = texCount;
+        _texture_bounds = new vec2f*[texCount];
+        _textures = new string*[texCount];
+        for(int i = 0; i < texCount; i++)
         {
-            _color_bounds[i] = col_bounds[i];
-            _colors[i] = new vec3f(cols[i]);
+            _texture_bounds[i] = new vec2f(texture_bounds[i]->x, texture_bounds[i]->y);
+            _textures[i] = new string(textures[i]);
         }
     }
     else{
-        _colorCount = 2;
-        _color_bounds = new float[2]{0,1};
-        _colors = new vec3f*[2]{new vec3f(0,0,0), new vec3f(1,1,1)};
+        cout << "Error: No texture selected for the terrain" << endl;
+        exit(-1);
     }
 }
 
 void glTerrain::DrawModel(float resolution) {
 
-    GLuint tid[3] = {
-            gameEngine::GetTexture("low"),
-            gameEngine::GetTexture("mid"),
-            gameEngine::GetTexture("high")
-    };
+    
+    
+    
+    GLuint *tid = new GLuint[_texCount];
+    for (int i = 0; i < _texCount; i++) tid[i] = gameEngine::GetTexture(_textures[i]->c_str());
+
     float q = resolution <= 0.f ? 0.1f : resolution;
     float r = (float)_size/(_actualsize);
+
     glEnable(GL_TEXTURE_2D);
     for (int i = 1; i < _size; i++)
     {
         glDisable(GL_BLEND);
-
-        glBindTexture(GL_TEXTURE_2D, tid[1]);
+        glBindTexture(GL_TEXTURE_2D, tid[0]);
 
         glBegin(GL_TRIANGLE_STRIP);
         for (int j = 0; j < _size; j++)
@@ -77,37 +78,28 @@ void glTerrain::DrawModel(float resolution) {
 
         glEnable(GL_BLEND);
 
-        glBindTexture(GL_TEXTURE_2D, tid[0]);
-        glBegin(GL_TRIANGLE_STRIP);
-        for (int j = 0; j < _size; j++)
+
+
+        for(int k = 1; k < _texCount; k++)
         {
-            //TerrainColor(_HeightMap[i][j]);
-            glColor4f(1,1,1, _HeightMap[i][j] <= 1 ? 1 : 0);
-            glTexCoord2f(q*r*i + q*Position->x*2,  q*r*j + q*Position->y*2);
-            glVertex3f((float)i * (_actualsize/(float)(_size - 1)), _HeightMap[i][j], (float)j * (_actualsize/(float)(_size - 1)));
+            glBindTexture(GL_TEXTURE_2D, tid[k]);
+            glBegin(GL_TRIANGLE_STRIP);
+            for (int j = 0; j < _size; j++)
+            {
+                float h1 = (_HeightMap[i][j] - _min)/(_max - _min);
+                float h2 = (_HeightMap[i-1][j] - _min)/(_max - _min);
 
-            //TerrainColor(_HeightMap[i-1][j]);
-            glColor4f(1,1,1, _HeightMap[i-1][j] <= 1 ? 1 : 0);
-            glTexCoord2f(q*r*(i-1) + q*Position->x*2, q*r*j + q*Position->y*2);
-            glVertex3f((float)(i-1) * (_actualsize/(float)(_size - 1)), _HeightMap[i-1][j], (float)j * (_actualsize/(float)(_size - 1)));
+                glColor4f(1,1,1, h1 < _texture_bounds[k]->x ? 0 : (h1 > _texture_bounds[k]->y ? 0 : 1));
+                glTexCoord2f(q*r*i + q*Position->x*2,  q*r*j + q*Position->y*2);
+                glVertex3f((float)i * (_actualsize/(float)(_size - 1)), _HeightMap[i][j], (float)j * (_actualsize/(float)(_size - 1)));
+
+                //TerrainColor(_HeightMap[i-1][j]);
+                glColor4f(1,1,1, h2 < _texture_bounds[k]->x ? 0 : (h2 > _texture_bounds[k]->y ? 0 : 1));
+                glTexCoord2f(q*r*(i-1) + q*Position->x*2, q*r*j + q*Position->y*2);
+                glVertex3f((float)(i-1) * (_actualsize/(float)(_size - 1)), _HeightMap[i-1][j], (float)j * (_actualsize/(float)(_size - 1)));
+            }
+            glEnd();
         }
-        glEnd();
-
-        glBindTexture(GL_TEXTURE_2D, tid[2]);
-        glBegin(GL_TRIANGLE_STRIP);
-        for (int j = 0; j < _size; j++)
-        {
-            //TerrainColor(_HeightMap[i][j]);
-            glColor4f(1,1,1, _HeightMap[i][j] >= 55 ? 1 : 0);
-            glTexCoord2f(q*r*i + q*Position->x*2,  q*r*j + q*Position->y*2);
-            glVertex3f((float)i * (_actualsize/(float)(_size - 1)), _HeightMap[i][j], (float)j * (_actualsize/(float)(_size - 1)));
-
-            //TerrainColor(_HeightMap[i-1][j]);
-            glColor4f(1,1,1, _HeightMap[i-1][j] >= 55 ? 1 : 0);
-            glTexCoord2f(q*r*(i-1) + q*Position->x*2, q*r*j + q*Position->y*2);
-            glVertex3f((float)(i-1) * (_actualsize/(float)(_size - 1)), _HeightMap[i-1][j], (float)j * (_actualsize/(float)(_size - 1)));
-        }
-        glEnd();
     }
     glDisable(GL_TEXTURE_2D);
 }
@@ -175,23 +167,4 @@ float glTerrain::noise(float i, float j, float pitch)
 
     double res = blendi * (q[2] * blendj + q[1] * (1-blendj)) + (1-blendi) * (q[3] * blendj + q[0] * (1-blendj));
     return res;
-}
-
-void glTerrain::TerrainColor(float height) {
-    int i = 0;
-    height -= _min;
-    height /= (_max - _min);
-    height = fmod(height + 1.0, 1.0);
-
-    for (i = 1; i < _colorCount; i++)
-    {
-        if (_color_bounds[i] > height) break;
-    }
-    int pi = i-1;
-
-    float bln = (height - _color_bounds[pi]) / (_color_bounds[i] - _color_bounds[pi]);
-
-    glColor3f((1-bln) * _colors[pi]->x + bln * _colors[i]->x
-            , (1-bln) * _colors[pi]->y + bln * _colors[i]->y
-            , (1-bln) * _colors[pi]->z + bln * _colors[i]->z);
 }

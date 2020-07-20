@@ -13,13 +13,16 @@ void Display()
 
     glRotatef(10, 1, 0, 0);
     glTranslatef(0,-20, 0);
+    glPushMatrix();
     gameEngine::DrawModels();
+    glPopMatrix();
 
     glPushMatrix();
-    glRotatef(dir, 0,1,0);
-    glTranslatef(-800,-200, -800);
 
-    TERA->DrawModel(0.5);
+        glRotatef(dir, 0,1,0);
+        glTranslatef(-800,-200, -800);
+
+        TERA->DrawModel(0.5);
     glPopMatrix();
 
     glutSwapBuffers();

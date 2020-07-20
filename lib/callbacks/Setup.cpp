@@ -9,18 +9,16 @@
 GLfloat lightPos[] = {10.0f, 50.0f, -90.f, 0.0f};
 
 glTerrain *TERA = new glTerrain(250, 1600, -1, 100, 0.08,
-    new float[8] {0, 0.05, 0.06, 0.3, 0.4, 0.7, 0.8, 1},
-    new vec3f*[8]{
-        new vec3f(0.094118, 0.188235, 0.388235),
-        new vec3f(0.298039, 0.380392, 0.560784),
-        new vec3f(0.254902, 0.580392, 0.278431),
-        new vec3f(0.372549, 0.529412, 0.384314),
-        new vec3f(0.701961, 0.709804, 0.611765),
-        new vec3f(0.870588, 0.878431, 0.756863),
-        new vec3f(0.941176, 0.941176, 0.941176),
-        new vec3f(1,1,1)
+    new vec2f*[3] {
+            new vec2f(0,0.01),
+            new vec2f(0.009, 0.45),
+            new vec2f(0.40, 1.f)},
+    new const char*[3]{
+            "low",
+            "mid",
+            "high"
     },
-    8
+    3
 );
 
 void Setup()
@@ -49,7 +47,7 @@ void Setup()
     //BLENDING STUFF
 
     glEnable(GL_COLOR_MATERIAL);
-    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+    glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

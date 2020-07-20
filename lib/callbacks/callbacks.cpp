@@ -81,10 +81,9 @@ void Idle()
 
 void dbg()
 {
-    cout << "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b";
-    cout << "                                                            ";
-    cout << "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b";
-    cout << "DBG: Position: [" << TERA->Position->x << ", " << TERA->Position->y << "]";
+    cout << "DBG:\t\tPosition -> [" << TERA->Position->x << ", " << TERA->Position->y << "]" << endl;
+    cout << "\t\t\tDirection -> [X:" << TERA->Direction->x << ", Z:" << TERA->Direction->y << "]" << endl;
+    cout << endl;
 }
 
 
