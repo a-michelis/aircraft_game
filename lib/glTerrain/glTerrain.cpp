@@ -5,12 +5,10 @@
 #include <cmath>
 #include <iostream>
 #include "../gameEngine/gameEngine.h"
-#include "glTerrain.h"
 
 
 glTerrain::glTerrain(int size, float actualsize, float y_min, float y_max, float pitch, vec2f **texture_bounds, const char **textures, int texCount) {
-    srand(NULL);
-
+    randRange rnd(-1.f, 1.f);
     Direction = new vec2f(0, 1);
     _size = size+1;
     _actualsize = actualsize;
@@ -26,7 +24,7 @@ glTerrain::glTerrain(int size, float actualsize, float y_min, float y_max, float
         _HeightMap[i] = new float[_size];
         _NoiseMap[i] = new float[_size];
 
-        for(int j = 0; j < _size; j++) _NoiseMap[i][j] = RandRange(-1,1);
+        for(int j = 0; j < _size; j++) _NoiseMap[i][j] = rnd();
     }
     _texCount = texCount;
     if (texCount > 0)
@@ -51,7 +49,7 @@ void glTerrain::DrawModel(float resolution) {
     
     
     
-    GLuint *tid = new GLuint[_texCount];
+    auto *tid = new GLuint[_texCount];
     for (int i = 0; i < _texCount; i++) tid[i] = gameEngine::GetTexture(_textures[i]->c_str());
 
     float q = resolution <= 0.f ? 0.1f : resolution;
@@ -67,11 +65,11 @@ void glTerrain::DrawModel(float resolution) {
         for (int j = 0; j < _size; j++)
         {
             //TerrainColor(_HeightMap[i][j]);
-            glTexCoord2f(q*r*i + q*Position->x*2,  q*r*j + q*Position->y*2);
+            glTexCoord2f(q*r*(float)i + q*Position->x*2,  q*r*(float)j + q*Position->y*2);
             glVertex3f((float)i * (_actualsize/(float)(_size - 1)), _HeightMap[i][j], (float)j * (_actualsize/(float)(_size - 1)));
 
             //TerrainColor(_HeightMap[i-1][j]);
-            glTexCoord2f(q*r*(i-1) + q*Position->x*2, q*r*j + q*Position->y*2);
+            glTexCoord2f(q*r*(float)(i-1) + q*Position->x*2, q*r*(float)j + q*Position->y*2);
             glVertex3f((float)(i-1) * (_actualsize/(float)(_size - 1)), _HeightMap[i-1][j], (float)j * (_actualsize/(float)(_size - 1)));
         }
         glEnd();
@@ -90,12 +88,12 @@ void glTerrain::DrawModel(float resolution) {
                 float h2 = (_HeightMap[i-1][j] - _min)/(_max - _min);
 
                 glColor4f(1,1,1, h1 < _texture_bounds[k]->x ? 0 : (h1 > _texture_bounds[k]->y ? 0 : 1));
-                glTexCoord2f(q*r*i + q*Position->x*2,  q*r*j + q*Position->y*2);
+                glTexCoord2f(q*r*(float)i + q*Position->x*2,  q*r*(float)j + q*Position->y*2);
                 glVertex3f((float)i * (_actualsize/(float)(_size - 1)), _HeightMap[i][j], (float)j * (_actualsize/(float)(_size - 1)));
 
                 //TerrainColor(_HeightMap[i-1][j]);
                 glColor4f(1,1,1, h2 < _texture_bounds[k]->x ? 0 : (h2 > _texture_bounds[k]->y ? 0 : 1));
-                glTexCoord2f(q*r*(i-1) + q*Position->x*2, q*r*j + q*Position->y*2);
+                glTexCoord2f(q*r*(float)(i-1) + q*Position->x*2, q*r*(float)j + q*Position->y*2);
                 glVertex3f((float)(i-1) * (_actualsize/(float)(_size - 1)), _HeightMap[i-1][j], (float)j * (_actualsize/(float)(_size - 1)));
             }
             glEnd();
@@ -104,28 +102,23 @@ void glTerrain::DrawModel(float resolution) {
     glDisable(GL_TEXTURE_2D);
 }
 
-float glTerrain::RandRange(float min, float max) {
-    return ((float)rand() / (float)RAND_MAX) * (max - min) + min;
-}
-
 void glTerrain::CalcDirection(float angle)
 {
     // cos = z
     // sin = x
-    float x = sin(angle * (2*M_PI)/360.f);
-    float z = cos(angle * (2*M_PI)/360.f);
+    auto x = (float)sin(angle * (2*M_PI)/360.f);
+    auto z = (float)cos(angle * (2*M_PI)/360.f);
     Direction = new vec2f(x, z);
 
 }
 
 void glTerrain::GenTerrain(float speed) {
 
-    // TODO : Calc new Position
     float newx = fmod(Position->x + (_pitch * speed * Direction->x), _size);
-    newx = newx < 0 ? newx + _size : newx;
+    newx = newx < 0 ? newx + (float)_size : newx;
 
     float newy = fmod(Position->y + (_pitch * speed * Direction->y), _size);
-    newy = newy < 0 ? newy + _size : newy;
+    newy = newy < 0 ? newy + (float)_size : newy;
 
     Position = new vec2f(
             newx,
@@ -137,10 +130,10 @@ void glTerrain::GenTerrain(float speed) {
         for (int j = 0; j < _size; j++)
         {
 
-            float res = noise(i,j, _pitch);
+            float res = noise((float)i,(float)j, _pitch);
             //res += 0.1 * noise(i,j, _pitch * 10);
-            res += 0.04 * noise(i,j, 0.117 + _pitch * 7);
-            res /= 1.04;
+            res += 0.04f * noise((float)i,(float)j, 0.117f + _pitch * 7);
+            res /= 1.04f;
             res = res * (_max - _min) + _min;
             _HeightMap[i][j] = res < _min ? _min : res;
         }
@@ -149,10 +142,10 @@ void glTerrain::GenTerrain(float speed) {
 
 float glTerrain::noise(float i, float j, float pitch)
 {
-    int prvi = (int)floor(_size + Position->x + (i * _pitch)) % _size;
-    int nxti = (int)ceil(_size + Position->x + (i * _pitch)) % _size;
-    int prvj = (int)floor(_size + Position->y + (j * _pitch)) % _size;
-    int nxtj = (int)ceil(_size + Position->y + (j * _pitch)) % _size;
+    int prvi = (int)floor((float)_size + Position->x + (i * _pitch)) % _size;
+    int nxti = (int)ceil((float)_size + Position->x + (i * _pitch)) % _size;
+    int prvj = (int)floor((float)_size + Position->y + (j * _pitch)) % _size;
+    int nxtj = (int)ceil((float)_size + Position->y + (j * _pitch)) % _size;
 
 
     double q[4] = {
@@ -162,9 +155,9 @@ float glTerrain::noise(float i, float j, float pitch)
             _NoiseMap[prvi][nxtj]
     };
 
-    double blendi= 1 - cos(fmod((_size + Position->x + (i * pitch)), 1.f) * (M_PI/2.f));
-    double blendj= 1 - cos(fmod((_size + Position->y + (j * pitch)), 1.f) * (M_PI/2.f));;
+    double blendi= 1 - cos(fmod(((float)_size + Position->x + (i * pitch)), 1.f) * (M_PI/2.f));
+    double blendj= 1 - cos(fmod(((float)_size + Position->y + (j * pitch)), 1.f) * (M_PI/2.f));
 
     double res = blendi * (q[2] * blendj + q[1] * (1-blendj)) + (1-blendi) * (q[3] * blendj + q[0] * (1-blendj));
-    return res;
+    return (float)res;
 }

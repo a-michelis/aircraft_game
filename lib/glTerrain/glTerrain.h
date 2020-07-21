@@ -15,11 +15,12 @@ class glTerrain {
     float _actualsize;
     float _pitch;
     float _min, _max;
-    float *_color_bounds = nullptr;
-    vec3f **_colors  = nullptr;
     vec2f **_texture_bounds = nullptr;
     string **_textures = nullptr;
     int _texCount = 0;
+
+
+
 
 public:
     vec2f *Position = new vec2f (0, 0);
@@ -27,7 +28,6 @@ public:
 
     glTerrain(int size, float actualsize, float y_min, float y_max, float pitch, vec2f **texture_bounds, const char **textures, int texCount = 0);
     void DrawModel(float resolution);
-    static float RandRange(float min, float max);
     void CalcDirection(float angle);
     void GenTerrain(float speed);
 

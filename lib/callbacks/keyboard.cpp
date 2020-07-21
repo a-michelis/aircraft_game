@@ -28,6 +28,8 @@ void KeyDown(unsigned char key, int x, int y)
         case 's':
             s = true;
             break;
+        default:
+            break;
     }
 }
 void KeyUp(unsigned char key, int x, int y)
@@ -45,6 +47,8 @@ void KeyUp(unsigned char key, int x, int y)
             break;
         case 's':
             s = false;
+            break;
+        default:
             break;
     }
 }

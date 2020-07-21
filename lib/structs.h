@@ -18,13 +18,6 @@ typedef struct _vec2
     _vec2(_vec2 *orig){x=orig->x; y=orig->y;}
 } vec2;
 
-typedef struct _vec3
-{
-    int x; int y; int z;
-    _vec3(int X, int Y, int Z){x=X;y=Y;z=Z;}
-    _vec3(_vec3 *orig){x=orig->x; y=orig->y;z=orig->z;}
-} vec3;
-
 typedef struct _vec2f
 {
     float x; float y;

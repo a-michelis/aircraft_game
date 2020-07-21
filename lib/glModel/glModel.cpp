@@ -5,9 +5,7 @@
 #include <sstream>
 #include <fstream>
 #include <iostream>
-#include <filesystem>
 #include "../gameEngine/gameEngine.h"
-#include "glModel.h"
 
 
 // ############################################################################################
@@ -21,7 +19,7 @@ glModel::glModel(const char* modelName, const char *filename) {
     _triangles = new vector<triangle*>();
     LoadFromFile(filename);
 
-    string *mf = new string(filename);
+    auto *mf = new string(filename);
     mf->replace(mf->find(".obj"),4,".mtl");
     LoadMaterials(mf->c_str());
 
@@ -32,13 +30,13 @@ glModel::glModel(const char* modelName, const char *filename) {
 glModel::glModel(const char* modelName, vector<vec3f *> *vertices, vector<vec3f *> *normals, vector<triangle *> *triangles) {
     ModelName = new string(modelName);
 
-    if (vertices->size() > 0)
+    if (!vertices->empty())
         _vertices = new vector<vec3f*>(vertices->begin(), vertices->end());
 
-    if (normals->size() > 0)
+    if (!normals->empty())
         _normals = new vector<vec3f*>(normals->begin(), normals->end());
 
-    if (triangles->size() > 0)
+    if (!triangles->empty())
         _triangles = new vector<triangle*>(triangles->begin(), triangles->end());
 
     _transformations = new list<transformation*>();
@@ -50,68 +48,62 @@ glModel::glModel(const char* modelName, vector<vec3f *> *vertices, vector<vec3f 
 // ############################################################################################
 
 void glModel::AddTransformation(const char *Id, TransformationType type, float *args) {
-    if(_transformations->size() > 0)
+    if(!_transformations->empty())
     {
-        for(auto it = _transformations->begin(); it != _transformations->end(); it = next(it))
+        _List_iterator<transformation *> it;
+        for(it = _transformations->begin(); it != _transformations->end(); it = next(it))
         {
-            if ((*it)->id->compare(Id) == 0) return;
+            if (*(*it)->id == Id) return;
         }
     }
 
     _transformations->push_back(new transformation(Id, type, args));
-
-
-    //cout << "Transf Added '" << Id << "'\n";
 }
 
-void glModel::AlterTransformation(const char *Id, TransformationType Type, float *Args) {
-    if (_transformations->size() == 0) return;
+//void glModel::AlterTransformation(const char *Id, TransformationType Type, float *Args) {
+//    if (_transformations->empty()) return;
+//
+//    for (auto it = _transformations->begin(); it != _transformations->end(); it = next(it)) {
+//        if (*(*it)->id == Id)
+//        {
+//            *it = new transformation(Id, Type, Args);
+//            return;
+//        }
+//    }
+//}
 
-    for (auto it = _transformations->begin(); it != _transformations->end(); it = next(it)) {
-        if ((*it)->id->compare(Id) == 0)
-        {
-            (*it) = new transformation(Id, Type, Args);
-            //cout << "Transf Altered '" << Id << "'\n";
-            return;
-        }
-    }
+//transformation *glModel::GetTransformation(const char *Id) {
+//    if (_transformations->empty()) return nullptr;
+//
+//    _List_iterator<transformation *> it;
+//    for (it = _transformations->begin(); it != _transformations->end(); it = next(it)) {
+//        if (*(*it)->id == Id) {
+//            return (*it);
+//        }
+//    }
+//
+//    return nullptr;
+//}
 
-    //cout << "Transf NotFound'" << Id << "'\n";
-}
+//void glModel::RemoveTransformation(const char *Id) {
+//    if (_transformations->empty()) return;
+//
+//    _List_iterator<transformation *> it;
+//    for (it = _transformations->begin(); it != _transformations->end(); it = next(it)) {
+//        if (*(*it)->id == Id)
+//        {
+//            _transformations->remove(*it);
+//            return;
+//        }
+//    }
+//}
 
-transformation *glModel::GetTransformation(const char *Id) {
-    if (_transformations->size() == 0) return nullptr;
-
-    for (auto it = _transformations->begin(); it != _transformations->end(); it = next(it)) {
-        if ((*it)->id->compare(Id) == 0) {
-            //cout << "Transf Found'" << *(*it)->id << "'\n";
-            return (*it);
-        }
-    }
-
-    return nullptr;
-}
-
-void glModel::RemoveTransformation(const char *Id) {
-    if (_transformations->size() == 0) return;
-
-    for (auto it = _transformations->begin(); it != _transformations->end(); it = next(it)) {
-        if ((*it)->id->compare(Id) == 0)
-        {
-            _transformations->remove((*it));
-            return;
-        }
-    }
-}
-
-void glModel::RemoveTransformations() {
-    if (_transformations->size() == 0) return;
-
-    while (_transformations->size() > 0)
-    {
-        _transformations->remove(*(_transformations->begin()));
-    }
-}
+//void glModel::RemoveTransformations() {
+//    while (!_transformations->empty())
+//    {
+//        _transformations->remove(*_transformations->begin());
+//    }
+//}
 
 // ############################################################################################
 // Mechanics ##################################################################################
@@ -119,74 +111,80 @@ void glModel::RemoveTransformations() {
 
 void glModel::AddMechanic(const char *Id, float **Dependencies, int *indexes, int indexCount) {
 
-    if (_transformations->size() == 0) return;
+    if (_transformations->empty()) return;
     transformation **t = nullptr;
 
-    for(auto it = _transformations->begin(); it != _transformations->end(); it = next(it))
+    _List_iterator<transformation *> it;
+    for(it = _transformations->begin(); it != _transformations->end(); it = next(it))
     {
-        if ((*it)->id->compare(Id) == 0) {t = &(*it); break;}
+        if (*(*it)->id == Id) {t = &(*it); break;}
     }
 
     if (t == nullptr) return;
 
-    if(_mechanics->size() > 0)
+    if(!_mechanics->empty())
     {
-        for(auto it = _mechanics->begin(); it != _mechanics->end(); it = next(it))
+        _List_iterator<mechanic *> im;
+        for(im = _mechanics->begin(); im != _mechanics->end(); im = next(im))
         {
-            if ((*it)->transf->id->compare(Id) == 0) return;
+            if (*(*im)->transf->id == Id) return;
         }
     }
 
     _mechanics->push_back(new mechanic (t, Dependencies, indexes, indexCount));
 }
 
-void glModel::AlterMechanic(const char *Id, float **Dependencies, int *indexes, int indexCount) {
-    if (_mechanics->size() == 0) return;
+//void glModel::AlterMechanic(const char *Id, float **Dependencies, int *indexes, int indexCount) {
+//    if (_mechanics->empty()) return;
+//
+//    transformation **t = nullptr;
+//
+//    _List_iterator<transformation *> it;
+//    for(it = _transformations->begin(); it != _transformations->end(); it = next(it))
+//    {
+//        if (*(*it)->id == Id) {t = &(*it); break;}
+//    }
+//
+//    if (t == nullptr) return;
+//
+//    _List_iterator<mechanic *> im;
+//    for(im = _mechanics->begin(); im != _mechanics->end(); im = next(im))
+//    {
+//        if (*(*im)->transf->id == Id)
+//        {
+//            *im = new mechanic(t, Dependencies, indexes, indexCount);
+//            return;
+//        }
+//    }
+//}
 
-    transformation **t = nullptr;
+//void glModel::RemoveMechanic(const char *Id, bool RemoveTransformationAsWell) {
+//    if (_mechanics->empty()) return;
+//
+//    _List_iterator<mechanic *> it;
+//    for(it = _mechanics->begin(); it != _mechanics->end(); it = next(it))
+//    {
+//        if (*(*it)->transf->id == Id)
+//        {
+//            if (RemoveTransformationAsWell)
+//                RemoveTransformation((*it)->transf->id->c_str());
+//
+//            _mechanics->remove(*it);
+//
+//            return;
+//        }
+//    }
+//}
 
-    for(auto it = _transformations->begin(); it != _transformations->end(); it = next(it))
-    {
-        if ((*it)->id->compare(Id) == 0) {t = &(*it); break;}
-    }
-
-    if (t == nullptr) return;
-
-    for(auto it = _mechanics->begin(); it != _mechanics->end(); it = next(it))
-    {
-        if ((*it)->transf->id->compare(Id) == 0)
-        {
-            (*it) = new mechanic (t, Dependencies, indexes, indexCount);
-            return;
-        }
-    }
-}
-
-void glModel::RemoveMechanic(const char *Id, bool RemoveTransformationAsWell) {
-    if (_mechanics->size() == 0) return;
-    for(auto it = _mechanics->begin(); it != _mechanics->end(); it = next(it))
-    {
-        if ((*it)->transf->id->compare(Id) == 0)
-        {
-            if (RemoveTransformationAsWell)
-                RemoveTransformation((*it)->transf->id->c_str());
-
-            _mechanics->remove((*it));
-
-            return;
-        }
-    }
-}
-
-void glModel::RemoveMechanics(bool RemoveTransformationsAsWell) {
-    while (_mechanics->size() > 0)
-    {
-        if (RemoveTransformationsAsWell)
-            RemoveTransformation((*(_mechanics->begin()))->transf->id->c_str());
-
-        _mechanics->remove(*(_mechanics->begin()));
-    }
-}
+//void glModel::RemoveMechanics(bool RemoveTransformationsAsWell) {
+//    while (!_mechanics->empty())
+//    {
+//        if (RemoveTransformationsAsWell)
+//            RemoveTransformation((*(_mechanics->begin()))->transf->id->c_str());
+//
+//        _mechanics->remove(*(_mechanics->begin()));
+//    }
+//}
 
 // ############################################################################################
 // Drawing ####################################################################################
@@ -210,20 +208,20 @@ void glModel::DrawModel() {
             glColor4f(ModelColor->r, ModelColor->g, ModelColor->b, ModelColor->a);
             for(auto it = _triangles->begin(); it != _triangles->end(); it = next(it))
             {
-                triangle *f = *it;
+                triangle *face = *it;
 
                 vec3f *v[3] =
                         {
-                            _vertices->at(f->vertices[0]),
-                            _vertices->at(f->vertices[1]),
-                            _vertices->at(f->vertices[2])
+                            _vertices->at(face->vertices[0]),
+                            _vertices->at(face->vertices[1]),
+                            _vertices->at(face->vertices[2])
                         };
 
                 vec3f *n[3] =
                         {
-                            _normals->at(f->normals[0]),
-                            _normals->at(f->normals[1]),
-                            _normals->at(f->normals[2])
+                            _normals->at(face->normals[0]),
+                            _normals->at(face->normals[1]),
+                            _normals->at(face->normals[2])
                         };
 
                 glNormal3f(n[0]->x, n[0]->y, n[0]->z);
@@ -325,7 +323,7 @@ void glModel::LoadMaterials(const char *filename) {
             float x, y, z;
             if (!(iss >> cd >> x >> y >> z)) { break; } // error
 
-            _Ka = new vec3f(x*0.3, y*0.3, z*0.3);
+            _Ka = new vec3f(x*0.3f, y*0.3f, z*0.3f);
             _HasKa = true;
         }
 
@@ -335,7 +333,7 @@ void glModel::LoadMaterials(const char *filename) {
             float x, y, z;
             if (!(iss >> cd >> x >> y >> z)) { break; } // error
 
-            _Kd = new vec3f(x*0.3, y*0.3, z*0.3);
+            _Kd = new vec3f(x*0.3f, y*0.3f, z*0.3f);
             _HasKd = true;
         }
 
@@ -345,7 +343,7 @@ void glModel::LoadMaterials(const char *filename) {
             float x, y, z;
             if (!(iss >> cd >> x >> y >> z)) { break; } // error
 
-            _Ks = new vec3f(x*0.3, y*0.3, z*0.3);
+            _Ks = new vec3f(x*0.3f, y*0.3f, z*0.3f);
             _HasKs = true;
         }
 
@@ -355,7 +353,7 @@ void glModel::LoadMaterials(const char *filename) {
             float x;
             if (!(iss >> cd >> x)) { break; } // error
 
-            _il = x*0.3;
+            _il = x*0.3f;
             _HasIl = true;
         }
 
@@ -365,7 +363,7 @@ void glModel::LoadMaterials(const char *filename) {
             float x;
             if (!(iss >> cd >> x)) { break; } // error
 
-            _ns = x*0.3;
+            _ns = x*0.3f;
             _HasNs = true;
         }
         else continue;
@@ -380,9 +378,7 @@ void glModel::LoadMaterials(const char *filename) {
 // ############################################################################################
 
 void glModel::ApplyTransformations() {
-    if (_transformations->size() == 0) return;
-
-//    int c = 0;
+    if (_transformations->empty()) return;
 
     for (auto it = _transformations->begin(); it != _transformations->end(); it = next(it))
     {
@@ -390,15 +386,12 @@ void glModel::ApplyTransformations() {
 
         switch(t->type){
             case TT_MOVE:
-//                cout << ModelName->c_str() << ": Move[" << c++ << "] = " << t->id->c_str() << endl;
                 glTranslatef(t->args[0], t->args[1], t->args[2]);
                 break;
             case TT_SCALE:
-//                cout << ModelName->c_str() << ": Scale[" << c++ << "] = " << t->id->c_str() << endl;
                 glScalef(t->args[0], t->args[1], t->args[2]);
                 break;
             case TT_ROTATE:
-//                cout << ModelName->c_str() << ": Rotate[" << c++ << "] = " << t->id->c_str() << endl;
                 glRotatef(t->args[0], t->args[1], t->args[2], t->args[3]);
                 break;
             default:
@@ -414,7 +407,7 @@ void glModel::ApplyTransformations() {
 // ############################################################################################
 
 void glModel::UpdateMechanics() {
-    if (_mechanics->size() == 0) return;
+    if (_mechanics->empty()) return;
 
     for (auto it = _mechanics->begin(); it != _mechanics->end(); it = next(it))
     {

@@ -16,7 +16,19 @@ set(SOURCE_FILES
 
         lib/BMPLoader/BMPLoader.cpp
         lib/BMPLoader/BMPLoader.h
-        lib/callbacks/callbacks.cpp lib/callbacks/callbacks.h lib/callbacks/Display.cpp lib/callbacks/ReSize.cpp lib/callbacks/Setup.cpp lib/callbacks/keyboard.cpp lib/glTerrain/glTerrain.cpp lib/glTerrain/glTerrain.h)
+
+        lib/callbacks/callbacks.h
+        lib/callbacks/Display.cpp
+        lib/callbacks/ReSize.cpp
+        lib/callbacks/Setup.cpp
+        lib/callbacks/keyboard.cpp
+        lib/glTerrain/glTerrain.cpp
+        lib/glTerrain/glTerrain.h
+        lib/randRange/randRange.h
+        lib/callbacks/Idle.cpp
+        lib/callbacks/Close.cpp
+        lib/callbacks/dbg.cpp
+   )
 
 ##########################################################
 # Project Setup ##########################################

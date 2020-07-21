@@ -12,17 +12,17 @@ using namespace std;
 // HIDDEN VARIABLES ########################################################################################
 // #########################################################################################################
 
-bool            _displaySet         = false;            // True when we set display callback function.
-                                                        // ONLY THEN we start the engine.
+bool            displaySet         = false;            // True when we set display callback function.
+                                                       // ONLY THEN we start the engine.
 
-bool            _setupSet           = false;            // True when we set Setup function
-void            (*_setupFunc)(void) = nullptr;          // Contains the Setup Function
+bool            setupSet           = false;            // True when we set Setup function
+void            (*setupFunc)()     = nullptr;          // Contains the Setup Function
 
-bool            _closeSet           = false;            // True when we set Close function
-void            (*_closeFunc)(void) = nullptr;          // Contains the Closing Function
+bool            closeSet           = false;            // True when we set Close function
+void            (*closeFunc)()     = nullptr;          // Contains the Closing Function
 
-list<texture*> *_textures;
-list<glModel*> *_models;
+list<texture*> *Textures;
+list<glModel*> *Models;
 
 // #########################################################################################################
 // METHOD DEFINITIONS ######################################################################################
@@ -32,7 +32,7 @@ void gameEngine::Init(
         vec2 *WindowPosition,
         vec2 *WindowDimensions,
         const char *WindowTitle,
-        GLuint *glOptions,
+        const GLuint *glOptions,
         int glOptionsCount,
         int *argc, char **argv
         )
@@ -52,17 +52,17 @@ void gameEngine::Init(
     // Last, we create the desired window, while we define its title according our arguements.
     glutCreateWindow(WindowTitle);
 
-    _textures = new list<texture*>;
-    _models = new list<glModel*>;
+    Textures = new list<texture*>;
+    Models = new list<glModel*>;
 
     // What's left is defining the functions, and some other things (setup etc) in order to
     // start the glutMainLoop() function.
 }
 
-void gameEngine::DisplayCallback(void (*function)(void)) {
+void gameEngine::DisplayCallback(void (*function)()) {
     if (function == nullptr) return;
     glutDisplayFunc(function);
-    _displaySet = true;
+    displaySet = true;
 }
 
 void gameEngine::ResizeCallback(void (*function)(int, int)) {
@@ -70,21 +70,21 @@ void gameEngine::ResizeCallback(void (*function)(int, int)) {
     glutReshapeFunc(function);
 }
 
-void gameEngine::IdleCallback(void (*function)(void)) {
+void gameEngine::IdleCallback(void (*function)()) {
     if (function == nullptr) return;
     glutIdleFunc(function);
 }
 
-void gameEngine::SetupCallback(void (*function)(void)) {
+void gameEngine::SetupCallback(void (*function)()) {
     if (function == nullptr) return;
-    _setupSet = true;
-    _setupFunc = function;
+    setupSet = true;
+    setupFunc = function;
 }
 
-void gameEngine::CloseCallback(void (*function)(void)) {
+void gameEngine::CloseCallback(void (*function)()) {
     if (function == nullptr) return;
-    _closeSet = true;
-    _closeFunc = function;
+    closeSet = true;
+    closeFunc = function;
 }
 
 void gameEngine::KeyDownCallback(void (*function)(unsigned char, int, int), bool KeyRepeat) {
@@ -99,10 +99,11 @@ void gameEngine::KeyUpCallback(void (*function)(unsigned char, int, int)) {
 }
 
 void gameEngine::AddTexture(const char *filename, const char *Id, int type){
-    if (_textures->size() > 0)
+    if (!Textures->empty())
     {
-        for (auto it = _textures->begin(); it != _textures->end(); it = next(it))
-            if ((*it)->id->compare(Id) == 0) return;
+        _List_iterator<texture *> it;
+        for (it = Textures->begin(); it != Textures->end(); it = next(it))
+            if (*(*it)->id == Id) return;
     }
 
     GLuint tex;
@@ -134,15 +135,15 @@ void gameEngine::AddTexture(const char *filename, const char *Id, int type){
 
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    _textures->push_back(new texture(tex, Id));
+    Textures->push_back(new texture(tex, Id));
 }
 
 GLuint gameEngine::GetTexture(const char *Id) {
-    if (_textures->size() == 0) return 0;
+    if (Textures->empty()) return 0;
 
-    for (auto it = _textures->begin(); it != _textures->end(); it = next(it))
+    for (auto it = Textures->begin(); it != Textures->end(); it = next(it))
     {
-        if ((*it)->id->compare(Id) == 0)
+        if (*(*it)->id == Id)
         {
             return (*it)->texId;
         }
@@ -150,102 +151,82 @@ GLuint gameEngine::GetTexture(const char *Id) {
     return 0;
 }
 
-void gameEngine::SetTexture(GLuint texid) {
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, texid);
-}
-
-void gameEngine::UnsetTexture() {
-    glDisable(GL_TEXTURE_2D);
-}
-
-void gameEngine::RemoveTexture(const char *Id) {
-    if (_textures->size() == 0) return;
-
-    for (auto it = _textures->begin(); it != _textures->end(); it = next(it))
-    {
-        if ((*it)->id->compare(Id) == 0)
-        {
-            glDeleteTextures(1, &((*it)->texId));
-            _textures->remove((*it));
-            return;
-        }
-    }
-}
+//void gameEngine::RemoveTexture(const char *Id) {
+//    if (Textures->empty()) return;
+//
+//    _List_iterator<texture *> it;
+//    for (it = Textures->begin(); it != Textures->end(); it = next(it))
+//    {
+//        if (*(*it)->id == Id)
+//        {
+//            glDeleteTextures(1, &((*it)->texId));
+//            Textures->remove((*it));
+//            return;
+//        }
+//    }
+//}
 
 void gameEngine::RemoveAllTextures() {
-    while (_textures->size() > 0)
+    while (!Textures->empty())
     {
-        glDeleteTextures(1, &((*_textures->begin())->texId));
-        _textures->remove((*_textures->begin()));
+        glDeleteTextures(1, &((*Textures->begin())->texId));
+        Textures->remove((*Textures->begin()));
     }
 }
 
  glModel *gameEngine::AddModel(const char *Id, const char *filename) {
      {
-         if(_models->size() > 0)
+         if(!Models->empty())
          {
-             for (auto it = _models->begin(); it != _models->end(); it = next(it))
+             for (auto it = Models->begin(); it != Models->end(); it = next(it))
              {
-                 if ((*it)->ModelName->compare(Id) == 0) return (*it);
+                 if (*(*it)->ModelName == Id) return (*it);
              }
 
          }
 
-         _models->push_back(new glModel(Id, filename));
-         return _models->back();
+         Models->push_back(new glModel(Id, filename));
+         return Models->back();
      }
 }
 
-glModel *gameEngine::GetModel(const char *Id)
-{
-    if (_models->size() == 0) return nullptr;
+//glModel *gameEngine::GetModel(const char *Id)
+//{
+//    if (Models->empty()) return nullptr;
+//
+//    _List_iterator<glModel *> it;
+//    for (it = Models->begin(); it != Models->end(); it = next(it))
+//    {
+//        if (*(*it)->ModelName == Id) return (*it);
+//    }
+//    return nullptr;
+//}
 
-    for (auto it = _models->begin(); it != _models->end(); it = next(it))
-    {
-        if ((*it)->ModelName->compare(Id) == 0) return (*it);
-    }
-    return nullptr;
-}
-
-glModel *gameEngine::AddModel(const char *Id, vector<vec3f *> *vertices, vector<vec3f *> *normals,
-                              vector<triangle *> *triangles) {
-    if(_models->size() > 0)
-    {
-        for (auto it = _models->begin(); it != _models->end(); it = next(it))
-        {
-            if ((*it)->ModelName->compare(Id) == 0) return (*it);
-        }
-    }
-
-    _models->push_back(new glModel(Id, vertices, normals, triangles));
-    return _models->back();
-}
-
-void gameEngine::RemoveModel(const char *Id) {
-    if(_models->size() > 0)
-    {
-        for (auto it = _models->begin(); it != _models->end(); it = next(it))
-        {
-            if ((*it)->ModelName->compare(Id) == 0)
-            {
-                _models->remove((*it));
-                return;
-            }
-        }
-    }
-}
+//void gameEngine::RemoveModel(const char *Id) {
+//    if(!Models->empty())
+//    {
+//        _List_iterator<glModel *> it;
+//        for (it = Models->begin(); it != Models->end(); it = next(it))
+//        {
+//            if (*(*it)->ModelName == Id)
+//            {
+//                Models->remove((*it));
+//                return;
+//            }
+//        }
+//    }
+//}
 
 void gameEngine::RemoveAllModels() {
-    while (_models->size() > 0)
+    while (!Models->empty())
     {
-        _models->remove((*_models->begin()));
+        Models->remove((*Models->begin()));
     }
 }
 
 void gameEngine::DrawModels() {
-    if (_models->size() == 0) return;
-    for(auto it = _models->begin(); it != _models->end(); it = next(it))
+    if (Models->empty()) return;
+    for(auto it = Models->begin(); it != Models->end(); it = next(it))
     {
         (*it)->DrawModel();
     }
@@ -253,16 +234,16 @@ void gameEngine::DrawModels() {
 
 void gameEngine::StartLoop() {
     // We check if Display function is set.
-    if (!(_displaySet)) {return;}
+    if (!(displaySet)) {return;}
 
     // If all ok, we check if there's a setup function. If it does, we run it.
-    if (_setupSet) { _setupFunc(); }
+    if (setupSet) { setupFunc(); }
 
     // We start the loop.
     glutMainLoop();
 
     // We check if there's a close function. If it does, we run it.
-    if (_closeSet) { _closeFunc(); }
+    if (closeSet) { closeFunc(); }
 
 }
 

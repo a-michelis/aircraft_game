@@ -39,17 +39,17 @@ public:
     glModel(const char* modelName,vector<vec3f*> *vertices, vector<vec3f*> *normals, vector<triangle*> *triangles);
 
     void AddTransformation(const char* Id, TransformationType type, float args[]);
-    void AlterTransformation (const char* Id, TransformationType Type, float Args[]);
-    transformation *GetTransformation(const char* Id);
-    void RemoveTransformation(const char* Id);
-    void RemoveTransformations();
+//    void AlterTransformation (const char* Id, TransformationType Type, float Args[]);
+//    transformation *GetTransformation(const char* Id);
+//    void RemoveTransformation(const char* Id);
+//    void RemoveTransformations();
 
     void DrawModel();
 
     void AddMechanic(const char* Id, float **Dependencies, int indexes[], int indexCount);
-    void AlterMechanic(const char* Id, float **Dependencies, int indexes[], int indexCount);
-    void RemoveMechanic(const char* Id, bool RemoveTransformationAsWell = false);
-    void RemoveMechanics(bool RemoveTransformationsAsWell = false);
+//    void AlterMechanic(const char* Id, float **Dependencies, int indexes[], int indexCount);
+//    void RemoveMechanic(const char* Id, bool RemoveTransformationAsWell = false);
+//    void RemoveMechanics(bool RemoveTransformationsAsWell = false);
 
 private:
     void LoadFromFile(const char *filename);

@@ -5,8 +5,8 @@
 #ifndef AIRCRAFT_GAME_CALLBACKS_H
 #define AIRCRAFT_GAME_CALLBACKS_H
 
-#include <chrono>
 #include "../gameEngine/gameEngine.h"
+#include <chrono>
 #include "../glTerrain/glTerrain.h"
 
 extern GLfloat lightPos[];
@@ -36,6 +36,9 @@ void KeyUp(unsigned char key, int x, int y);
 
 void Setup();
 void Close();
+
+
+void dbg();
 
 
 

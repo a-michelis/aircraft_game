@@ -12,11 +12,13 @@ using namespace std;
 #include <GL/glu.h>
 #include <GL/glut.h>
 #include <vector>
+#include <random>
 #include "../structs.h"
 #include "../glModel/glModel.h"
 #include "../BMPLoader/BMPLoader.h"
 #include "../callbacks/callbacks.h"
 #include "../glTerrain/glTerrain.h"
+#include "../randRange/randRange.h"
 
 
 class gameEngine {
@@ -26,7 +28,7 @@ public:
             vec2 *WindowPosition,
             vec2 *WindowDimensions,
             const char *WindowTitle,
-            GLuint glOptions[], int glOptionsCount,
+            const GLuint glOptions[], int glOptionsCount,
             int *argc, char *argv[]
             );
 
@@ -42,16 +44,13 @@ public:
     // Texture Handling Functions
     static void AddTexture(const char *filename, const char *Id, int type);
     static GLuint GetTexture(const char *Id);
-    static void SetTexture(GLuint texid);
-    static void UnsetTexture();
-    static void RemoveTexture(const char *Id);
+//    static void RemoveTexture(const char *Id);
     static void RemoveAllTextures();
 
     // Model Handling Functions
-    static glModel *GetModel(const char *Id);
+//    static glModel *GetModel(const char *Id);
     static glModel *AddModel(const char *Id, const char *filename);
-    static glModel *AddModel(const char *Id, vector<vec3f*> *vertices, vector<vec3f*> *normals, vector<triangle*> *triangles);
-    static void RemoveModel(const char *Id);
+//    static void RemoveModel(const char *Id);
     static void RemoveAllModels();
     static void DrawModels();
 
